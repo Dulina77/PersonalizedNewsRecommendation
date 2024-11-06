@@ -1,12 +1,15 @@
 package com.example.cw1;
 
+import java.util.ArrayList;
+
 public class User {
+    private int userId;
     private String name;
     private String email;
     private String password;
-    private String[] preferences;
+    ArrayList<String> preferences;
 
-    public User(String name, String email, String password,String[] preferences){
+    public User(String name, String email, String password,ArrayList<String> preferences){
         this.name = name;
         this.email = email;
         this.password = password;
@@ -38,11 +41,15 @@ public class User {
         this.password = password;
     }
 
-    public String[] getPreferences() {
+    public ArrayList<String> getPreferences() {
         return preferences;
     }
 
-    public void setPreferences(String[] preferences) {
+    public void setPreferences(ArrayList<String> preferences) {
         this.preferences = preferences;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 }
