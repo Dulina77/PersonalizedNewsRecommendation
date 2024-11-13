@@ -59,11 +59,9 @@ public class ArticleInserter {
                     String title = article[0];
                     String content = article[1];
 
-                    // Set the parameters for the query
                     statement.setString(1, title);
                     statement.setString(2, content);
 
-                    // Execute the insert
                     statement.executeUpdate();
                 }
 
