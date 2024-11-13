@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class ArticleInserter {
     public static void main(String[] args) {
         String[][] articles = {
-                {"AI Transforms Medical Diagnostics","AI is now capable of analyzing complex medical data to assist doctors in diagnoses. Advanced algorithms process images and data to detect anomalies early, improving patient outcomes. While AI's integration into healthcare holds promise, ethical concerns and data privacy issues remain. Ongoing research aims to address these challenges, making AI an invaluable tool in medical diagnostics."},
+                {"Tech Giants Embrace AI for Content Creation","Major tech companies are developing AI tools for writing and design, revolutionizing content creation. This trend raises debates over intellectual property and the future of human creativity. Industry leaders are working on ethical standards to guide responsible AI usage in digital content production."},
                 {"Renewable Energy Gains Momentum Globally","Renewable energy sources, including wind, solar, and hydropower, are now key to sustainable development. Countries are committing to lower carbon emissions, investing in clean energy technology. However, renewable energy faces challenges like intermittency, but technological advancements are slowly overcoming these issues. Increased adoption rates are promising for a future with minimal carbon footprint."},
                 {"The Future of Space Tourism","Space tourism is shifting from sci-fi to reality as private companies launch space flights for civilians. Although prohibitively expensive for most, the sector is expected to grow as costs decrease. Space tourism could reshape our understanding of space, yet regulatory and environmental concerns remain crucial as the industry evolves."},
                 {"Cybersecurity Threats in 2024","Cybersecurity is a growing priority as digital threats continue to evolve. With more companies shifting to remote work, vulnerabilities have increased, requiring updated defenses. Hackers exploit weak systems, and companies invest in measures like encryption and multi-factor authentication. Governments are also drafting laws to combat cyber threats effectively."},
@@ -51,7 +53,7 @@ public class ArticleInserter {
         String user = "root";
         String password = "Dulina@123";
 
-        String insertSQL = "INSERT INTO article (title, content) VALUES (?, ?)";
+        String insertSQL = "INSERT INTO article (title, content, category) VALUES (?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             try (PreparedStatement statement = connection.prepareStatement(insertSQL)) {
@@ -59,8 +61,13 @@ public class ArticleInserter {
                     String title = article[0];
                     String content = article[1];
 
+                    KeywordExtraction keywordExtraction = new KeywordExtraction();
+                    String category = keywordExtraction.categorizeArticle(keywordExtraction.getTFvalue(article[1]));
+
+
                     statement.setString(1, title);
                     statement.setString(2, content);
+                    statement.setString(3, category);
 
                     statement.executeUpdate();
                 }
@@ -73,4 +80,6 @@ public class ArticleInserter {
             System.out.println("Connection failed: " + e.getMessage());
         }
     }
+
+
 }
