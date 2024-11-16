@@ -1,5 +1,6 @@
 package com.example.cw1;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class ArticleInserter {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String[][] articles = {
                 {"Tech Giants Embrace AI for Content Creation","Major tech companies are developing AI tools for writing and design, revolutionizing content creation. This trend raises debates over intellectual property and the future of human creativity. Industry leaders are working on ethical standards to guide responsible AI usage in digital content production."},
                 {"The Future of Space Tourism","Space tourism is shifting from sci-fi to reality as private companies launch space flights for civilians. Although prohibitively expensive for most, the sector is expected to grow as costs decrease. Space tourism could reshape our understanding of space, yet regulatory and environmental concerns remain crucial as the industry evolves."},
@@ -127,11 +128,13 @@ public class ArticleInserter {
                 {"Telecommunications and the Future of 5G Connectivity", "5G technology is expected to revolutionize telecommunications by offering faster internet speeds, lower latency, and more reliable connections. This next-generation network will enable innovations in IoT, autonomous vehicles, and augmented reality, making it a key enabler of the digital economy. However, challenges related to infrastructure, spectrum allocation, and security must be addressed before 5G can reach its full potential."},
 
         };
-
-
         String url = "jdbc:mysql://localhost:3306/news";
         String user = "root";
         String password = "Dulina@123";
+
+
+
+
 
         String insertSQL = "INSERT INTO article (title, content, category) VALUES (?, ?, ?)"+ "ON DUPLICATE KEY UPDATE content = ?, category = ?";;
 
@@ -142,7 +145,7 @@ public class ArticleInserter {
                     String content = article[1];
 
                     KeywordExtraction keywordExtraction = new KeywordExtraction();
-                    String category = keywordExtraction.categorizeArticle(keywordExtraction.getTFvalue(article[1]));
+                    String category = keywordExtraction.categorizeArticle(article[1]);
 
 
                     statement.setString(1, title);
