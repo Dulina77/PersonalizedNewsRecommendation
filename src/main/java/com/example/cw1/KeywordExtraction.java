@@ -10,12 +10,47 @@ public class KeywordExtraction {
     private static final String FASTAPI_URL = "http://127.0.0.1:8000/extract_keywords";
 
     // Existing category keyword lists
-    final List<String> sports = Arrays.asList("game", "team", "player", "match", "score", "tournament", "league", "coach", "season", "competition", "win", "athlete", "goal", "stadium", "championship", "athletics", "tournament", "champion", "competition", "fitness", "training", "medal", "trophy", "pitch", "scoreboard", "spectator", "matchup" ,"teamwork", "athlete", "sportsmanship", "referee", "season", "defense", "offense", "fitness", "exercise", "practice", "stadium", "uniform", "coach", "teammate");
-    final List<String> technology = Arrays.asList("software", "hardware", "computer", "AI", "tech", "robotics", "cybersecurity", "programming", "innovation", "smartphone", "machine learning", "cloud", "data", "network", "blockchain",  "innovation", "gadgets", "devices", "automation", "AI", "IoT", "quantum computing", "virtual reality", "cloud computing", "5G", "blockchain", "cybersecurity", "digital", "software development", "coding", "programming", "big data", "internet", "artificial intelligence", "machine learning", "data science", "analytics", "network", "database", "encryption", "algorithm", "VR", "AR");
-    final List<String> politics = Arrays.asList("government", "policy", "election", "vote", "democracy", "president", "minister", "parliament", "senate", "law", "constitution", "political party", "candidate", "campaign", "referendum","policy", "regulation", "election", "democracy", "congress", "senate", "representative", "candidate", "campaign", "ballot", "legislation", "executive", "judiciary", "parliament", "government", "administration", "bill", "law", "rights", "diplomacy", "sanction", "treaty", "constitution", "citizenship", "leader", "ambassador", "debate", "committee", "opposition", "republic");
-    final List<String> health = Arrays.asList("disease", "medicine", "doctor", "hospital", "treatment", "vaccine", "healthcare", "pandemic", "nutrition", "mental health", "wellness", "exercise", "infection", "virus", "epidemic","well-being", "disease prevention", "treatment", "clinic", "healthcare system", "medicine", "pharmacy", "surgery", "medical research", "epidemic", "immunization", "pandemic", "public health", "nutrition", "fitness", "exercise", "mental health", "wellness", "hospital", "health insurance", "emergency room", "doctor", "nurse", "patient care", "symptoms", "diagnosis", "therapist", "psychology", "medication", "lifestyle");
-    final List<String> business = Arrays.asList("market", "economy", "finance", "investment", "stock", "revenue", "profit", "trade", "company", "entrepreneur", "startup", "shares", "tax", "industry", "business strategy","economics", "startup", "marketplace", "stock market", "corporate", "investment", "fintech", "enterprise", "mergers", "acquisitions", "entrepreneur", "capital", "shares", "branding", "strategy", "business plan", "revenue", "profit", "loss", "dividends", "assets", "liabilities", "commerce", "trade", "globalization", "retail", "customer", "supply chain", "operations", "logistics", "financial", "market research");
-    final List<String> weather = Arrays.asList("forecast", "temperature", "climate", "humidity", "precipitation", "rain", "snow", "storm", "wind", "hurricane", "tornado", "drought", "flood", "heatwave", "cold front", "blizzard", "lightning", "thunder", "UV index", "barometer", "dew point", "meteorology", "weather patterns", "atmosphere", "seasonal", "tropical", "air pressure", "jet stream", "el niño", "la niña", "monsoon", "cyclone", "cloud cover");
+    final List<String> sports = Arrays.asList("game", "team", "player", "match", "score", "tournament", "league", "coach", "season", "competition",
+            "win", "athlete", "goal", "stadium", "championship", "athletics", "tournament", "champion", "competition",
+            "fitness", "training", "medal", "trophy", "pitch", "scoreboard", "spectator", "matchup", "teamwork", "sportsmanship",
+            "referee", "defense", "offense", "exercise", "practice", "uniform", "teammate", "penalty", "dribble", "dunk", "assist",
+            "rebound", "basket", "soccer", "baseball", "football", "basketball", "cricket", "hockey", "rugby", "boxing", "wrestling",
+            "mma", "cycling", "golf", "tennis", "swimming", "track and field", "marathon", "world cup", "super bowl", "olympics",
+            "sports news", "fitness level", "injury", "matchday", "goalkeeper", "striker", "midfielder", "defender", "referee", "coach");
+    final List<String> technology = Arrays.asList("software", "hardware", "computer", "AI", "tech", "robotics", "cybersecurity", "programming", "innovation",
+            "smartphone", "machine learning", "cloud", "data", "network", "blockchain", "gadgets", "devices", "automation", "IoT",
+            "quantum computing", "virtual reality", "cloud computing", "5G", "cybersecurity", "digital", "software development",
+            "coding", "programming", "big data", "internet", "artificial intelligence", "data science", "analytics", "network",
+            "database", "encryption", "algorithm", "VR", "AR", "wearables", "smart home", "3D printing", "autonomous vehicles",
+            "machine vision", "voice recognition", "edge computing", "big data analytics", "cloud infrastructure", "data center",
+            "distributed computing", "open-source", "developer", "startup", "fintech", "smart devices", "network security", "digital transformation");
+    final List<String> politics = Arrays.asList("government", "policy", "election", "vote", "democracy", "president", "minister", "parliament", "senate", "law",
+            "constitution", "political party", "candidate", "campaign", "referendum", "regulation", "congress", "representative",
+            "ballot", "legislation", "executive", "judiciary", "administration", "bill", "rights", "diplomacy", "sanction", "treaty",
+            "citizenship", "leader", "ambassador", "debate", "committee", "opposition", "republic", "state", "political reform",
+            "government transparency", "foreign policy", "social policy", "public opinion", "lobbying", "political activism", "federal",
+            "local government", "political unrest", "electoral system", "civil rights", "legislature", "voter turnout", "coalition",
+            "constitutional amendment", "human rights", "social justice", "advocacy", "political protest");
+    final List<String> health = Arrays.asList("disease", "medicine", "doctor", "hospital", "treatment", "vaccine", "healthcare", "pandemic", "nutrition", "mental health",
+            "wellness", "exercise", "infection", "virus", "epidemic", "disease prevention", "clinic", "healthcare system", "pharmacy",
+            "surgery", "medical research", "immunization", "public health", "fitness", "mental health", "wellness", "health insurance",
+            "emergency room", "nurse", "patient care", "diagnosis", "therapist", "psychology", "medication", "lifestyle", "treatment plan",
+            "preventive care", "hospitalization", "symptoms", "health risks", "nutritionist", "obesity", "chronic disease", "diabetes",
+            "heart disease", "cancer", "mental illness", "stress management", "self-care", "rehabilitation", "treatment options",
+            "medical technology", "health screenings", "mental wellness", "fitness trackers", "exercise routine", "dietary supplements");
+    final List<String> business = Arrays.asList("market", "economy", "finance", "investment", "stock", "revenue", "profit", "trade", "company", "entrepreneur", "startup",
+            "shares", "tax", "industry", "business strategy", "economics", "marketplace", "corporate", "fintech", "enterprise", "mergers",
+            "acquisitions", "capital", "branding", "business plan", "loss", "dividends", "assets", "liabilities", "commerce", "retail",
+            "supply chain", "operations", "logistics", "financial", "market research", "globalization", "economic growth", "business news",
+            "investor", "portfolio", "stock market", "real estate", "e-commerce", "consumer goods", "financial planning", "business development",
+            "economic policy", "economic forecast", "entrepreneurship", "small business", "venture capital", "startup ecosystem", "brand loyalty",
+            "consumer behavior", "market trends", "sustainability", "corporate governance");
+    final List<String> weather = Arrays.asList("forecast", "temperature", "climate", "humidity", "precipitation", "rain", "snow", "storm", "wind", "hurricane", "tornado",
+            "drought", "flood", "heatwave", "cold front", "blizzard", "lightning", "thunder", "UV index", "barometer", "dew point",
+            "meteorology", "weather patterns", "atmosphere", "seasonal", "tropical", "air pressure", "jet stream", "el niño", "la niña",
+            "monsoon", "cyclone", "cloud cover", "cloudburst", "weather system", "rainfall", "temperature rise", "weather warning",
+            "natural disaster", "climate change", "weather satellite", "weather station", "forecast models", "storm surge", "weather alert",
+            "frost", "wind chill", "weather prediction", "high pressure", "low pressure", "severe weather", "climate report", "global warming");
 
     public String categorizeArticle(String content) throws IOException {
         List<String> keywords = getKeywordsFromAPI(content);
