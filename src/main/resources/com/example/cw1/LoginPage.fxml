@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.LoginPageController">
    <children>
-      <Button fx:id="loginButton" layoutX="263.0" layoutY="332.0" mnemonicParsing="false" text="Login" />
+      <Button fx:id="loginButton" layoutX="263.0" layoutY="332.0" mnemonicParsing="false" onAction="#login" text="Login" />
       <Button fx:id="registerButton" layoutX="300.0" layoutY="272.0" mnemonicParsing="false" onAction="#switchToRegisterPage" text="Register" />
       <PasswordField fx:id="logInPassword" layoutX="240.0" layoutY="211.0" prefHeight="25.0" prefWidth="209.0" />
       <Label layoutX="132.0" layoutY="215.0" text="Password" />
@@ -16,5 +16,6 @@
       <Label layoutX="128.0" layoutY="162.0" text="User Name" />
       <Label layoutX="256.0" layoutY="72.0" prefHeight="35.0" prefWidth="59.0" text="Welcome" />
       <Label layoutX="200.0" layoutY="276.0" text="Not a User?" />
+      <Label fx:id="failureMessage" layoutX="94.0" layoutY="306.0" prefHeight="25.0" prefWidth="382.0" />
    </children>
 </AnchorPane>

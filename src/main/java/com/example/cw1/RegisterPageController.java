@@ -13,16 +13,23 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class RegisterPageController {
     public Label Message2;
+    @FXML
+    public TextField firstNameField;
+
+    @FXML
+    public TextField lastNameField;
+    public Label systemResponse;
     private Stage stage;
     private Scene scene;
     private Parent parent;
 
     String userId;
+    String FirstName;
+    String LastName;
     String UserName;
     String eMail;
     String password;
@@ -64,6 +71,8 @@ public class RegisterPageController {
         UserName = RegistrationUserName.getText();
         password = RegistrationPassword.getText();
         eMail = RegistrationEmail.getText();
+        FirstName = firstNameField.getText();
+        LastName = lastNameField.getText();
 
         if(Technology.isSelected()){
             preferences.add("Technology");
@@ -81,12 +90,9 @@ public class RegisterPageController {
 
 
 
-        User user = new User(RegistrationUserName.getText(),RegistrationEmail.getText(),RegistrationPassword.getText(),preferences);
-        System.out.println(user.getName());
-        System.out.println(user.getEmail());
-        System.out.println(user.preferences);
-
+        User user = new User(RegistrationUserName.getText(),RegistrationEmail.getText(),RegistrationPassword.getText(),preferences,FirstName,LastName);
         DataBase.insertUser(user);
+        systemResponse.setText("User Registration Successful");
 
 
     }

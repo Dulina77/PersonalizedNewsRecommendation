@@ -12,32 +12,38 @@
 
 <AnchorPane prefHeight="356.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.RegisterPageController">
    <children>
-      <GridPane layoutY="73.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="157.0" prefWidth="600.0">
+      <GridPane layoutX="5.0" layoutY="73.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="157.0" prefWidth="600.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="152.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="448.0" minWidth="10.0" prefWidth="448.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="210.0" minHeight="0.0" prefHeight="39.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="220.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="220.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="   User Name" />
-            <TextField fx:id="RegistrationUserName" prefHeight="25.0" prefWidth="426.0" GridPane.columnIndex="1" />
-            <Label text="   Email" GridPane.rowIndex="1" />
-            <TextField fx:id="RegistrationEmail" prefHeight="25.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <PasswordField fx:id="RegistrationPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="   Enter Password" GridPane.rowIndex="2" />
-            <Label text="   Preferences for Articles" GridPane.rowIndex="3" />
-            <AnchorPane prefHeight="70.0" prefWidth="415.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label text="   User Name" GridPane.rowIndex="2" />
+            <TextField fx:id="RegistrationUserName" prefHeight="25.0" prefWidth="426.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="   Email" GridPane.rowIndex="3" />
+            <TextField fx:id="RegistrationEmail" prefHeight="25.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <PasswordField fx:id="RegistrationPassword" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="   Enter Password" GridPane.rowIndex="4" />
+            <Label text="   Preferences for Articles" GridPane.rowIndex="5" />
+            <AnchorPane prefHeight="70.0" prefWidth="415.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
                   <CheckBox fx:id="Technology" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" text="Technology" />
                   <CheckBox fx:id="Health" layoutX="159.0" layoutY="15.0" mnemonicParsing="false" text="Health" />
                   <CheckBox fx:id="Sports" layoutX="279.0" layoutY="15.0" mnemonicParsing="false" text="Sports" />
                </children>
             </AnchorPane>
+            <Label text="   First Name" />
+            <Label text="   Last Name" GridPane.rowIndex="1" />
+            <TextField fx:id="firstNameField" GridPane.columnIndex="1" />
+            <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Label layoutX="273.0" layoutY="25.0" text="Registration" />
@@ -45,7 +51,6 @@
       <CheckBox fx:id="Politics" layoutX="173.0" layoutY="231.0" mnemonicParsing="false" text="Politics" />
       <CheckBox fx:id="Business" layoutX="315.0" layoutY="231.0" mnemonicParsing="false" text="Business" />
       <Button fx:id="BackButton" layoutX="202.0" layoutY="291.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Back" />
-      <Label fx:id="Message" layoutX="286.0" layoutY="261.0" />
-      <Label fx:id="Message2" layoutX="286.0" layoutY="252.0" text="  " />
+      <Label fx:id="systemResponse" layoutX="193.0" layoutY="261.0" prefHeight="17.0" prefWidth="243.0" />
    </children>
 </AnchorPane>
