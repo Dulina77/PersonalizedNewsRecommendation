@@ -5,17 +5,18 @@ public class DataBase {
     public static final String url = "jdbc:mysql://localhost:3306/news";
     public static final String user = "root";
     public static final String password = "Dulina@123";
-    public final String query = "INSERT INTO user VALUES('001','user1','sports','gdhdfnjghmghjghdfhdh')";
 
 
 
     public static void insertUser(User user) {
-        String query = "INSERT INTO user (user_name, email,password) VALUES (?, ?, ?)";
+        String query = "INSERT INTO user_final (user_name,first_name, last_name, email,password) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3,user.getPassword());
+            stmt.setString(1, user.getUserName());
+            stmt.setString(2, user.getFirstName());
+            stmt.setString(3,user.getLastName());
+            stmt.setString(4, user.getEmail());
+            stmt.setString(5,user.getPassword());
             stmt.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();

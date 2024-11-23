@@ -3,22 +3,31 @@ package com.example.cw1;
 import java.util.ArrayList;
 
 public class User {
-    private int userId;
-    private String name;
+    private String FirstName;
+    private String LastName;
+
+    private String userName;
     private String email;
     private String password;
     ArrayList<String> preferences;
 
-    public User(String name, String email, String password,ArrayList<String> preferences){
-        this.name = name;
+    public User(String userName, String email, String password,ArrayList<String> preferences, String firstName, String lastName){
+        this.userName = userName;
         this.email = email;
         this.password = password;
         this.preferences = preferences;
+        this.FirstName = firstName;
+        this.LastName = lastName;
+    }
+
+    public User(String username, String password) {
+        this.userName = username;
+        this.password = password;
     }
 
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
     public String getEmail() {
@@ -29,8 +38,8 @@ public class User {
         return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setEmail(String email) {
@@ -49,7 +58,19 @@ public class User {
         this.preferences = preferences;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getFirstName() {
+        return FirstName;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        LastName = lastName;
     }
 }
