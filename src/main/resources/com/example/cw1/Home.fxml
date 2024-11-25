@@ -8,17 +8,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="659.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.HomeController">
    <children>
       <HBox layoutX="14.0" layoutY="14.0" prefHeight="100.0" prefWidth="518.0">
          <children>
-            <Label fx:id="welcomeMessage" alignment="CENTER" prefHeight="92.0" prefWidth="409.0" text="Welcome user">
+            <Label fx:id="welcomeMessage" alignment="CENTER" prefHeight="92.0" prefWidth="399.0" text="Welcome user">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Button fx:id="logOutButton" alignment="CENTER" mnemonicParsing="false" onAction="#BackToLogIn" prefHeight="34.0" prefWidth="65.0" text="Log Out" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="ManageAccountButton" layoutX="22.0" layoutY="7.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" text="Manage Account" />
+                  <Button fx:id="logOutButton" alignment="CENTER" layoutX="47.0" layoutY="50.0" mnemonicParsing="false" onAction="#BackToLogIn" prefHeight="34.0" prefWidth="65.0" text="Log Out" />
+               </children>
+            </AnchorPane>
          </children>
       </HBox>
       <VBox layoutX="78.0" layoutY="114.0" prefHeight="529.0" prefWidth="390.0">

@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
@@ -16,13 +17,13 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
+    public Button ManageAccountButton;
     String url = "jdbc:mysql://localhost:3306/news";
     String user = "root";
     String password = "Dulina@123";
 
     public ListView newsList;
 
-    String[] news = {"fsgdhgh","dgxghdrfhdh","fdgdhhsh"};
     ArrayList<String> news2 = articleFetcher();
 
     @Override
