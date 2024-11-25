@@ -13,7 +13,7 @@
       <TextArea fx:id="contentSpace" prefHeight="298.0" prefWidth="600.0" />
       <AnchorPane prefHeight="124.0" prefWidth="600.0">
          <children>
-            <Button fx:id="BackButton" layoutX="21.0" layoutY="36.0" mnemonicParsing="false" text="Back To Home Page" />
+            <Button fx:id="BackButton" layoutX="21.0" layoutY="36.0" mnemonicParsing="false" onAction="#BackToHomePage" text="Back To Home Page" />
             <Button fx:id="LikeButton" layoutX="436.0" layoutY="36.0" mnemonicParsing="false" text="Like" />
             <Button fx:id="DislikeButton" layoutX="506.0" layoutY="36.0" mnemonicParsing="false" text="Dislike" />
             <Label layoutX="436.0" layoutY="14.0" prefHeight="17.0" prefWidth="70.0" text="Rate Article?" />
