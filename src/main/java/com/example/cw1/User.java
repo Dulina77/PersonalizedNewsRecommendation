@@ -11,7 +11,7 @@ public class User {
     private String password;
     ArrayList<String> preferences;
 
-    public User(String userName, String email, String password,ArrayList<String> preferences, String firstName, String lastName){
+    public User(String userName, String password, String email,ArrayList<String> preferences, String firstName, String lastName){
         this.userName = userName;
         this.email = email;
         this.password = password;
