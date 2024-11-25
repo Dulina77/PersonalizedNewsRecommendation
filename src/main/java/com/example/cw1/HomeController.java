@@ -24,12 +24,16 @@ public class HomeController implements Initializable {
 
     public ListView newsList;
 
-    ArrayList<String> news2 = articleFetcher();
+    ArrayList<String> newsTitles = articleTitleFetcher();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        newsList.getItems().addAll(news2);
+        newsList.getItems().addAll(newsTitles);
+
+        newsList.setOnMouseClicked((this::articleSelection));
     }
+
+
 
     public void BackToLogIn(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
@@ -39,21 +43,64 @@ public class HomeController implements Initializable {
         stage.show();
     }
 
-    public ArrayList<String> articleFetcher(){
-        ArrayList<String> news = new ArrayList<>();
+    public ArrayList<String> articleTitleFetcher(){
+        ArrayList<String> title = new ArrayList<>();
         String query = "SELECT Title FROM article ";
         try(Connection connection = DriverManager.getConnection(url,user,password)) {
             PreparedStatement stmt = connection.prepareStatement((query));
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()){
-                news.add(resultSet.getString("Title"));
+                title.add(resultSet.getString("Title"));
             }
 
 
-        return news;
+        return title;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public void articleSelection(javafx.scene.input.MouseEvent event){
+        if(event.getClickCount() == 2) {
+            String clickedTitle = (String) newsList.getSelectionModel().getSelectedItem();
+
+            if (clickedTitle != null) {
+                try {
+                    String articleContent = articleContentFetcher(clickedTitle);
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/FullArticle.fxml"));
+                    Scene scene = new Scene(loader.load());
+
+                    FullArticleController controller = loader.getController();
+                    controller.setArticleDetails(clickedTitle, articleContent);
+
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+    }
+
+    public String articleContentFetcher(String title){
+        ArrayList<String> content = new ArrayList<>();
+        String query = "SELECT content FROM article WHERE Title = ?";
+        try(Connection connection = DriverManager.getConnection(url,user,password)) {
+            PreparedStatement stmt = connection.prepareStatement((query));
+            stmt.setString(1,title);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()){
+                return resultSet.getString("content");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return "Article content not accessible";
+    }
+
 }
