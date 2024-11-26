@@ -5,7 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 
 
 public class MainApplication extends Application {
@@ -16,7 +15,7 @@ public class MainApplication extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
             Scene scene = new Scene(root);
             stage.setTitle("Your News Recommendation Application");
-            stage.setScene(scene); // Set the window size
+            stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

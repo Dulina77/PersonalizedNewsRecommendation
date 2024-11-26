@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -32,14 +31,6 @@
             <TextField fx:id="RegistrationEmail" prefHeight="25.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <PasswordField fx:id="RegistrationPassword" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="   Enter Password" GridPane.rowIndex="4" />
-            <Label text="   Preferences for Articles" GridPane.rowIndex="5" />
-            <AnchorPane prefHeight="70.0" prefWidth="415.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <children>
-                  <CheckBox fx:id="Technology" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" text="Technology" />
-                  <CheckBox fx:id="Health" layoutX="159.0" layoutY="15.0" mnemonicParsing="false" text="Health" />
-                  <CheckBox fx:id="Sports" layoutX="279.0" layoutY="15.0" mnemonicParsing="false" text="Sports" />
-               </children>
-            </AnchorPane>
             <Label text="   First Name" />
             <Label text="   Last Name" GridPane.rowIndex="1" />
             <TextField fx:id="firstNameField" GridPane.columnIndex="1" />
@@ -48,8 +39,6 @@
       </GridPane>
       <Label layoutX="273.0" layoutY="25.0" text="Registration" />
       <Button fx:id="RegisterButton" layoutX="348.0" layoutY="291.0" mnemonicParsing="false" onAction="#register" text="Register" />
-      <CheckBox fx:id="Politics" layoutX="173.0" layoutY="231.0" mnemonicParsing="false" text="Politics" />
-      <CheckBox fx:id="Business" layoutX="315.0" layoutY="231.0" mnemonicParsing="false" text="Business" />
       <Button fx:id="BackButton" layoutX="202.0" layoutY="291.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Back" />
       <Label fx:id="systemResponse" layoutX="193.0" layoutY="261.0" prefHeight="17.0" prefWidth="243.0" />
    </children>
