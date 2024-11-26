@@ -5,20 +5,10 @@ import java.util.ArrayList;
 public class User {
     private String FirstName;
     private String LastName;
-
     private String userName;
     private String email;
     private String password;
-    ArrayList<String> preferences;
 
-    public User(String userName, String password, String email,ArrayList<String> preferences, String firstName, String lastName){
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.preferences = preferences;
-        this.FirstName = firstName;
-        this.LastName = lastName;
-    }
 
     public User(String username, String password) {
         this.userName = username;
@@ -58,13 +48,6 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<String> getPreferences() {
-        return preferences;
-    }
-
-    public void setPreferences(ArrayList<String> preferences) {
-        this.preferences = preferences;
-    }
 
     public String getFirstName() {
         return FirstName;

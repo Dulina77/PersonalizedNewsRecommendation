@@ -16,10 +16,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
     public Button ManageAccountButton;
+    public ListView RecommendedNewsList;
     @FXML
     private Label welcomeMessage;
     String url = "jdbc:mysql://localhost:3306/news";
@@ -28,15 +30,18 @@ public class HomeController implements Initializable {
 
     private User user;
 
-    public ListView newsList;
+    public ListView MainNewsList;
 
     ArrayList<String> newsTitles = articleTitleFetcher();
+    List<String> recommendedTitles ;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        newsList.getItems().addAll(newsTitles);
+        MainNewsList.getItems().addAll(newsTitles);
+        MainNewsList.setOnMouseClicked((this::articleSelectionMain));
 
-        newsList.setOnMouseClicked((this::articleSelection));
+
+        RecommendedNewsList.setOnMouseClicked((this::articleSelectionRecommendation));
 
     }
 
@@ -66,9 +71,9 @@ public class HomeController implements Initializable {
         }
     }
 
-    public void articleSelection(javafx.scene.input.MouseEvent event){
+    public void articleSelectionMain(javafx.scene.input.MouseEvent event){
         if(event.getClickCount() == 2) {
-            String clickedTitle = (String) newsList.getSelectionModel().getSelectedItem();
+            String clickedTitle = (String) MainNewsList.getSelectionModel().getSelectedItem();
 
             if (clickedTitle != null) {
                 try {
@@ -80,6 +85,36 @@ public class HomeController implements Initializable {
                     FullArticleController controller = loader.getController();
                     controller.setArticleDetails(clickedTitle, articleContent);
                     controller.setUser(user);
+                    controller.onOpen(event);
+
+
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }
+    }
+
+    public void articleSelectionRecommendation(javafx.scene.input.MouseEvent event){
+        if(event.getClickCount() == 2) {
+            String clickedTitle = (String) RecommendedNewsList.getSelectionModel().getSelectedItem();
+
+            if (clickedTitle != null) {
+                try {
+                    String articleContent = articleContentFetcher(clickedTitle);
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/FullArticle.fxml"));
+                    Scene scene = new Scene(loader.load());
+
+                    FullArticleController controller = loader.getController();
+                    controller.setArticleDetails(clickedTitle, articleContent);
+                    controller.setUser(user);
+                    controller.onOpen(event);
 
 
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -112,14 +147,32 @@ public class HomeController implements Initializable {
         return "Article content not accessible";
     }
 
-    public void setUser(User user){
+    public void setUser(User user) {
         this.user = user;
-        if (user != null){
-            welcomeMessage.setText("Welcome"+ " "+ user.getFirstName());
+        if (user != null) {
+            welcomeMessage.setText("Welcome" + " " + user.getFirstName());
             System.out.println(user.getUserName());
 
+            recommendedTitles = recommendationTitles(user);
+            RecommendedNewsList.getItems().clear();
+            RecommendedNewsList.getItems().addAll(recommendedTitles);
+            System.out.println(recommendedTitles);
+
+        }
+    }
+
+    public List<String> recommendationTitles(User user){
+        List<String> recommendedTitles = new ArrayList<>();
+        ArticleRecommendation articleRecommendation =  new ArticleRecommendation();
+
+        List<Article> recommendedArticles = articleRecommendation.getRecommendation(user.getUserName());
+
+        for (int i = 0; i < recommendedArticles.size(); i++) {
+            recommendedTitles.add(recommendedArticles.get(i).getTitle());
         }
 
+        return recommendedTitles;
     }
+
 
 }

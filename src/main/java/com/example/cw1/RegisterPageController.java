@@ -108,7 +108,7 @@ public class RegisterPageController {
             if(!eMailChecker(eMail)){
                 systemResponse.setText("Invalid Email Address");
             }else {
-                User user = new User(UserName,User_password,eMail,preferences,FirstName,LastName);
+                User user = new User(UserName,User_password,eMail,FirstName,LastName);
                 DataBase.insertUser(user);
                 systemResponse.setText("User Registration Successful");
             }
