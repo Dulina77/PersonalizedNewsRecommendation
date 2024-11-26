@@ -6,16 +6,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.FullArticleController">
    <children>
       <Label fx:id="TitleSpace" prefHeight="63.0" prefWidth="599.0" text="Label" />
-      <TextArea fx:id="contentSpace" prefHeight="298.0" prefWidth="600.0" />
+      <TextArea fx:id="contentSpace" prefHeight="298.0" wrapText="true" />
       <AnchorPane prefHeight="124.0" prefWidth="600.0">
          <children>
             <Button fx:id="BackButton" layoutX="21.0" layoutY="36.0" mnemonicParsing="false" onAction="#BackToHomePage" text="Back To Home Page" />
-            <Button fx:id="LikeButton" layoutX="436.0" layoutY="36.0" mnemonicParsing="false" text="Like" />
-            <Button fx:id="DislikeButton" layoutX="506.0" layoutY="36.0" mnemonicParsing="false" text="Dislike" />
+            <Button fx:id="LikeButton" layoutX="436.0" layoutY="36.0" mnemonicParsing="false" onAction="#onLikeButtonClick" text="Like" />
+            <Button fx:id="DislikeButton" layoutX="506.0" layoutY="36.0" mnemonicParsing="false" onAction="#onDislIkeButtonClick" text="Dislike" />
             <Label layoutX="436.0" layoutY="14.0" prefHeight="17.0" prefWidth="70.0" text="Rate Article?" />
          </children>
       </AnchorPane>
