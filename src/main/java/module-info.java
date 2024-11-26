@@ -5,6 +5,7 @@ module com.example.cw1 {
     requires okhttp3;
     requires org.jsoup;
     requires java.sql;
+    requires java.desktop;
 
 
     opens com.example.cw1 to javafx.fxml;
