@@ -151,5 +151,17 @@ public class HomeController implements Initializable {
         stage.setScene(scene);
     }
 
+    public void switchToManageAccountPage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/ManageAccount.fxml"));
+        Scene scene = new Scene(loader.load());
+
+        ManageAccountConroller controller = loader.getController();
+        controller.setUser(user);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+    }
+
+
 
 }

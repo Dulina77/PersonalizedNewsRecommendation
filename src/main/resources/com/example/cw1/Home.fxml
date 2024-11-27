@@ -21,7 +21,7 @@
             </Label>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="ManageAccountButton" layoutX="22.0" layoutY="7.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" text="Manage Account" />
+                  <Button fx:id="ManageAccountButton" layoutX="22.0" layoutY="7.0" mnemonicParsing="false" onAction="#switchToManageAccountPage" prefHeight="34.0" prefWidth="115.0" text="Manage Account" />
                   <Button fx:id="HistoryButton" layoutX="38.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchToHistoryPage" text="View History" />
                </children>
             </AnchorPane>
