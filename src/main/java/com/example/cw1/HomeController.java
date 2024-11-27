@@ -174,5 +174,17 @@ public class HomeController implements Initializable {
         return recommendedTitles;
     }
 
+    public void switchToHistoryPage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/History.fxml"));
+        Scene scene = new Scene(loader.load());
+
+        HistoryController controller = loader.getController();
+        controller.setUser(user);
+        controller.loadHistoryTable();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+    }
+
 
 }
