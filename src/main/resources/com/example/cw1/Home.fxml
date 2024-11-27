@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="659.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.HomeController">
+<AnchorPane prefHeight="694.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.HomeController">
    <children>
       <HBox layoutX="14.0" layoutY="14.0" prefHeight="100.0" prefWidth="518.0">
          <children>
@@ -22,7 +22,7 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Button fx:id="ManageAccountButton" layoutX="22.0" layoutY="7.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" text="Manage Account" />
-                  <Button fx:id="logOutButton" alignment="CENTER" layoutX="47.0" layoutY="50.0" mnemonicParsing="false" onAction="#BackToLogIn" prefHeight="34.0" prefWidth="65.0" text="Log Out" />
+                  <Button fx:id="HistoryButton" layoutX="38.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchToHistoryPage" text="View History" />
                </children>
             </AnchorPane>
          </children>
@@ -31,9 +31,9 @@
          <tabs>
             <Tab text="All Articles">
                <content>
-                  <VBox prefHeight="529.0" prefWidth="390.0">
+                  <VBox prefHeight="460.0" prefWidth="390.0">
                      <children>
-                        <ListView fx:id="MainNewsList" editable="true" prefHeight="530.0" prefWidth="390.0" />
+                        <ListView fx:id="MainNewsList" editable="true" prefHeight="464.0" prefWidth="390.0" />
                      </children>
                   </VBox>
                </content>
@@ -49,5 +49,6 @@
             </Tab>
          </tabs>
       </TabPane>
+      <Button fx:id="logOutButton" alignment="CENTER" layoutX="435.0" layoutY="645.0" mnemonicParsing="false" onAction="#BackToLogIn" prefHeight="34.0" prefWidth="65.0" text="Log Out" />
    </children>
 </AnchorPane>

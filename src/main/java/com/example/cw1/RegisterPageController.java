@@ -82,25 +82,12 @@ public class RegisterPageController {
         FirstName = firstNameField.getText();
         LastName = lastNameField.getText();
 
-        if(Technology.isSelected()){
-            preferences.add("Technology");
-        } if (Health.isSelected()) {
-            preferences.add("Health");
-        } if (Sports.isSelected()) {
-            preferences.add("Sports");
-        } if (Politics.isSelected()) {
-            preferences.add("Politics");
-        } if (Business.isSelected()) {
-            preferences.add("Business");
-        }else {
-            Message2.setText("No fields selected");
-        }
 
-        validate(UserName,User_password,eMail,FirstName,LastName,preferences,event);
+        validate(UserName,User_password,eMail,FirstName,LastName,event);
 
     }
 
-    public void validate(String UserName, String User_password, String eMail, String FirstName, String LastName, ArrayList<String> preferences, ActionEvent actionEvent) throws IOException {
+    public void validate(String UserName, String User_password, String eMail, String FirstName, String LastName, ActionEvent actionEvent) throws IOException {
         boolean isExistingUser = userNameCheck(UserName);
         if(isExistingUser){
             systemResponse.setText("The username is already taken");
