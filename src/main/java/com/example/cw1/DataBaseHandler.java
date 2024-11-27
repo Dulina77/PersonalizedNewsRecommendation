@@ -306,6 +306,54 @@ public class DataBaseHandler {
         return "Article content not accessible";
     }
 
+    public static void updateFirstName(String firstname,User user) throws SQLException {
+        String query = "UPDATE user_final SET first_name = ? WHERE user_name = ?";
+        try(Connection connection = DataBase.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement((query));
+            stmt.setString(1, firstname);
+            stmt.setString(2, user.getUserName());
+
+            stmt.executeUpdate();
+        }
+    }
 
 
+    public static void updateLastName(String lastname, User user) {
+        String query = "UPDATE user_final SET last_name = ? WHERE user_name = ?";
+        try(Connection connection = DataBase.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement((query));
+            stmt.setString(1, lastname);
+            stmt.setString(2, user.getUserName());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void updateEmail(String email, User user) {
+        String query = "UPDATE user_final SET email = ? WHERE user_name = ?";
+        try(Connection connection = DataBase.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement((query));
+            stmt.setString(1, email);
+            stmt.setString(2, user.getUserName());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void updatePassword(String password, User user) {
+        String query = "UPDATE user_final SET password = ? WHERE user_name = ?";
+        try(Connection connection = DataBase.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement((query));
+            stmt.setString(1, password);
+            stmt.setString(2, user.getUserName());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
