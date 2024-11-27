@@ -6,6 +6,7 @@ module com.example.cw1 {
     requires org.jsoup;
     requires java.sql;
     requires java.desktop;
+    requires com.opencsv;
 
 
     opens com.example.cw1 to javafx.fxml;

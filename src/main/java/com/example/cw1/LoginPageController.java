@@ -1,6 +1,7 @@
 package com.example.cw1;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -22,6 +23,8 @@ public class LoginPageController {
     public PasswordField logInPassword;
     public TextField logInUserName;
     public Label failureMessage;
+    @FXML
+    private Button adminButton;
     private Stage stage;
     private Scene scene;
     private Parent parent;
@@ -37,6 +40,14 @@ public class LoginPageController {
 
     public void switchToRegisterPage(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("RegisterPage.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToAdminPage(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("AdminPage.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

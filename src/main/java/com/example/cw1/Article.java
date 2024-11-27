@@ -2,8 +2,8 @@ package com.example.cw1;
 
 public class Article {
     private int ArticleId;
-    private final String Title;
-    private final String Content;
+    private String Title;
+    private String Content;
     private String category;
 
     public Article(int ArticleId, String Title, String Content){
@@ -17,6 +17,11 @@ public class Article {
         this.Title = Title;
         this.Content = Content;
         this.category = category;
+    }
+
+    public Article(String Title, String Content){
+        this.Title = Title;
+        this.Content = Content;
     }
 
 
@@ -35,4 +40,21 @@ public class Article {
     public String getCategory() {
         return category;
     }
+
+    public void setArticleId(int articleId) {
+        ArticleId = articleId;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
+
+    public void setContent(String content) {
+        Content = content;
+    }
+
 }
