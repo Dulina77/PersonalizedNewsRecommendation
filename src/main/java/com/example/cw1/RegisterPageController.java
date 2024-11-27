@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -22,26 +22,25 @@ import java.util.regex.Pattern;
 public class RegisterPageController {
     public Label Message2;
     @FXML
-    public TextField firstNameField;
+    private TextField firstNameField;
 
     @FXML
-    public TextField lastNameField;
-    public Label systemResponse;
+    private TextField lastNameField;
+    @FXML
+    private Label systemResponse;
+    @FXML
+    private Button AdminRegisterButton;
+
     private Stage stage;
     private Scene scene;
     private Parent parent;
 
-    String userId;
-    String FirstName;
-    String LastName;
-    String UserName;
-    String eMail;
-    String User_password;
-    ArrayList<String> preferences = new ArrayList<>();
-
-    public static final String url = "jdbc:mysql://localhost:3306/news";
-    public static final String user = "root";
-    public static final String password = "Dulina@123";
+    private String userId;
+    private String FirstName;
+    private String LastName;
+    private String UserName;
+    private String eMail;
+    private String User_password;
 
     @FXML
     private TextField RegistrationUserName;
@@ -51,17 +50,6 @@ public class RegisterPageController {
 
     @FXML
     private TextField RegistrationPassword;
-
-    @FXML
-    private CheckBox Technology;
-    @FXML
-    private CheckBox Health;
-    @FXML
-    private CheckBox Sports;
-    @FXML
-    private CheckBox Politics;
-    @FXML
-    private CheckBox Business;
 
     @FXML
     private Label Message;
@@ -75,7 +63,7 @@ public class RegisterPageController {
         stage.show();
     }
 
-    public void register(ActionEvent event) throws IOException {
+    public void register(ActionEvent event) throws IOException, SQLException {
         UserName = RegistrationUserName.getText();
         User_password = RegistrationPassword.getText();
         eMail = RegistrationEmail.getText();
@@ -87,8 +75,8 @@ public class RegisterPageController {
 
     }
 
-    public void validate(String UserName, String User_password, String eMail, String FirstName, String LastName, ActionEvent actionEvent) throws IOException {
-        boolean isExistingUser = userNameCheck(UserName);
+    public void validate(String UserName, String User_password, String eMail, String FirstName, String LastName, ActionEvent actionEvent) throws IOException, SQLException {
+        boolean isExistingUser = DataBaseHandler.userNameCheck(UserName);
         if(isExistingUser){
             systemResponse.setText("The username is already taken");
         }else {
@@ -96,7 +84,7 @@ public class RegisterPageController {
                 systemResponse.setText("Invalid Email Address");
             }else {
                 User user = new User(UserName,User_password,eMail,FirstName,LastName);
-                DataBase.insertUser(user);
+                DataBaseHandler.insertUser(user);
                 systemResponse.setText("User Registration Successful");
             }
 
@@ -105,27 +93,68 @@ public class RegisterPageController {
     }
 
 
-    public boolean userNameCheck(String username){
-        String query = "SELECT * FROM user_final WHERE user_name = ?";
-        boolean result = false;
 
-        try(Connection connection = DriverManager.getConnection(url,user,password)) {
-            PreparedStatement stmt = connection.prepareStatement((query));
-            stmt.setString(1,username);
-            ResultSet resultSet = stmt.executeQuery();
-            result = resultSet.next();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return result;
-
-    }
 
     public boolean eMailChecker(String email) {
         String emailRegex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
         Pattern pattern = Pattern.compile(emailRegex);
         return pattern.matcher(email).matches();
     }
+
+
+
+
+
+
+
+
+
+    public void registerAsAdmin(ActionEvent event) throws IOException {
+        UserName = RegistrationUserName.getText();
+        User_password = RegistrationPassword.getText();
+        eMail = RegistrationEmail.getText();
+        FirstName = firstNameField.getText();
+        LastName = lastNameField.getText();
+
+
+        validateAdmin(UserName,User_password,eMail,FirstName,LastName,event);
+
+    }
+
+    public void validateAdmin(String UserName, String User_password, String eMail, String FirstName, String LastName, ActionEvent actionEvent) throws IOException {
+        boolean isExistingUser = DataBaseHandler.userNameCheckAdmin(UserName);
+        if(isExistingUser){
+            systemResponse.setText("The Admin username is already taken");
+        }else {
+            if(!eMailChecker(eMail)){
+                systemResponse.setText("Invalid Email Address");
+            }else {
+                Admin admin = new Admin(UserName,User_password,eMail,FirstName,LastName);
+                DataBaseHandler.insertAdmin(admin);
+                systemResponse.setText("Admin Registration Successful");
+            }
+
+        }
+
+    }
+
+//    public boolean userNameCheckAdmin(String username){
+//        String query = "SELECT * FROM admin WHERE user_name = ?";
+//        boolean result = false;
+//
+//        try(Connection connection = DriverManager.getConnection(url,user,password)) {
+//            PreparedStatement stmt = connection.prepareStatement((query));
+//            stmt.setString(1,username);
+//            ResultSet resultSet = stmt.executeQuery();
+//            result = resultSet.next();
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return result;
+//
+//    }
+
+
 
 }
