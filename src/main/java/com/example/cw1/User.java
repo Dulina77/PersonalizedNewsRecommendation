@@ -8,6 +8,7 @@ public class User {
     private String userName;
     private String email;
     private String password;
+    private UserProfile profile;
 
 
     public User(String username, String password) {
@@ -21,6 +22,7 @@ public class User {
         this.password = password;
         this.FirstName = firstName;
         this.LastName = lastName;
+        this.profile = new UserProfile();
     }
 
 
@@ -63,5 +65,13 @@ public class User {
 
     public void setLastName(String lastName) {
         LastName = lastName;
+    }
+
+    public UserProfile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(UserProfile profile) {
+        this.profile = profile;
     }
 }
