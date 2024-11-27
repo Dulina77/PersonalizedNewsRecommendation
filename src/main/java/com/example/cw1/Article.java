@@ -6,10 +6,10 @@ public class Article {
     private String Content;
     private String category;
 
-    public Article(int ArticleId, String Title, String Content){
+    public Article(int ArticleId, String Title, String category){
         this.ArticleId = ArticleId;
         this.Title = Title;
-        this.Content = Content;
+        this.category = category;
     }
 
     public Article(int ArticleId, String Title, String Content,String category){
@@ -19,10 +19,9 @@ public class Article {
         this.category = category;
     }
 
-    public Article(String Title, String Content){
-        this.Title = Title;
-        this.Content = Content;
-    }
+
+
+
 
 
     public String getContent() {

@@ -7,10 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -21,6 +18,12 @@ import java.util.ResourceBundle;
 
 public class AdminPageController extends HomeController{
 
+    @FXML
+    private Label SuccessMessage;
+    @FXML
+    private TextArea newArticleContent;
+    @FXML
+    private TextField newArticleTitle;
     @FXML
     private Pane contentPane;
     @FXML
@@ -41,7 +44,7 @@ public class AdminPageController extends HomeController{
 
             if (clickedTitle != null) {
                 try {
-                    String articleContent = articleContentFetcher(clickedTitle);
+                    String articleContent = DataBaseHandler.articleContentFetcher(clickedTitle);
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/FullArticle.fxml"));
                     Scene scene = new Scene(loader.load());
@@ -60,43 +63,27 @@ public class AdminPageController extends HomeController{
         }
     }
 
-
     public void logout(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("AdminPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    private void showAddForm() {
-        contentPane.getChildren().clear();
+    @FXML
+    private void AddArticle() throws IOException, SQLException {
+        String title = newArticleTitle.getText();
+        String content = newArticleContent.getText();
 
-        // Create input fields dynamically
-        TextField titleField = new TextField();
-        titleField.setPromptText("Enter Title");
-
-        TextField contentField = new TextField();
-        contentField.setPromptText("Enter Content");
-
-        Button saveButton = new Button("Save Article");
-        saveButton.setOnAction(event -> {
-            try {
-                saveArticle(titleField.getText(), contentField.getText());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        // Add fields to contentPane
-        contentPane.getChildren().addAll(titleField, contentField, saveButton);
-    }
-
-    private void saveArticle(String title, String content) throws IOException {
         KeywordExtraction keywordExtraction = new KeywordExtraction();
         String category = keywordExtraction.categorizeArticle(content);
 
-        String query = "INSERT INTO article (title, content, category) VALUES (?, ?, ?)\" + \"ON DUPLICATE KEY UPDATE content = ?, category = ?";
+        DataBaseHandler.insertArticle(title,content,category);
+        SuccessMessage.setText("Article Added Successfully");
+
 
     }
+
+
 }

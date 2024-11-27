@@ -1,5 +1,6 @@
 package com.example.cw1;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -213,6 +214,98 @@ public class DataBaseHandler {
         }
 
     }
+
+    public static Article getArticleDetails(String title) throws SQLException {
+        int articleId = 0;
+        String category = null;
+        String queryId = "SELECT articleId FROM article WHERE Title = ?";
+        String queryCategory = "SELECT category FROM article WHERE Title = ?";
+
+        try (Connection connection = DataBase.getConnection()) {
+            PreparedStatement stmt1 = connection.prepareStatement(queryId);
+            stmt1.setString(1, title);
+            ResultSet resultSet1 = stmt1.executeQuery();
+
+            PreparedStatement stmt2 = connection.prepareStatement(queryCategory);
+            stmt2.setString(1, title);
+            ResultSet resultSet2 = stmt2.executeQuery();
+
+            if (resultSet1.next()) {
+                articleId = resultSet1.getInt("articleId");
+            }
+            if (resultSet2.next()) {
+                category = resultSet2.getString("category");
+            }
+            Article article = new Article(articleId, title, category);
+            return article;
+        }
+    }
+
+
+    public static void recordAction(String username, int articleId, String action){
+        String query = "INSERT INTO history(user_name, article_Id, action) values (?,?,?)";
+        try(Connection connection = DataBase.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(query)){
+            stmt.setString(1,username);
+            stmt.setInt(2,articleId);
+            stmt.setString(3,action);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void recordScores(String username,int articleId,String category , int score) throws SQLException {
+        String query = "INSERT into user_scores(user_name, articleid, category, score) VALUES (?,?,?,?) "+ "ON DUPLICATE KEY UPDATE score = score + ?";
+
+        try (Connection connection = DataBase.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, username);
+            stmt.setInt(2, articleId);
+            stmt.setString(3, category);
+            stmt.setInt(4, score);
+            stmt.setInt(5, score);
+            stmt.executeUpdate();
+            System.out.println(score);
+        }
+    }
+
+    public static ArrayList<String> articleTitleFetcher(){
+        ArrayList<String> title = new ArrayList<>();
+        String query = "SELECT Title FROM article ";
+        try(Connection connection = DataBase.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement((query));
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()){
+                title.add(resultSet.getString("Title"));
+            }
+            return title;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String articleContentFetcher(String title){
+        String query = "SELECT content FROM article WHERE Title = ?";
+        try(Connection connection = DataBase.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement((query));
+            stmt.setString(1,title);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()){
+                return resultSet.getString("content");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return "Article content not accessible";
+    }
+
 
 
 }
