@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.AdminPageController">
+   <children>
+      <ListView fx:id="MainNewsList" layoutX="25.0" layoutY="65.0" prefHeight="270.0" prefWidth="405.0" />
+      <Label fx:id="welcomeMessage" layoutX="42.0" layoutY="31.0" text="Label" />
+      <Button fx:id="addArticleButton" layoutX="476.0" layoutY="109.0" mnemonicParsing="false" text="Add Articles" />
+      <Button fx:id="updateArticlesButton" layoutX="462.0" layoutY="188.0" mnemonicParsing="false" text="Updating Articles" />
+   </children>
+</AnchorPane>
