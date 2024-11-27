@@ -24,15 +24,13 @@ public class HomeController implements Initializable {
     public ListView RecommendedNewsList;
     @FXML
     private Label welcomeMessage;
-    String url = "jdbc:mysql://localhost:3306/news";
-    String user_db = "root";
-    String password = "Dulina@123";
+
 
     private User user;
 
     public ListView MainNewsList;
 
-    ArrayList<String> newsTitles = articleTitleFetcher();
+    ArrayList<String> newsTitles = DataBaseHandler.articleTitleFetcher();
     List<String> recommendedTitles ;
 
     @Override
@@ -53,23 +51,6 @@ public class HomeController implements Initializable {
         stage.show();
     }
 
-    public ArrayList<String> articleTitleFetcher(){
-        ArrayList<String> title = new ArrayList<>();
-        String query = "SELECT Title FROM article ";
-        try(Connection connection = DriverManager.getConnection(url,user_db,password)) {
-            PreparedStatement stmt = connection.prepareStatement((query));
-            ResultSet resultSet = stmt.executeQuery();
-
-            while (resultSet.next()){
-                title.add(resultSet.getString("Title"));
-            }
-
-
-        return title;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public void articleSelectionMain(javafx.scene.input.MouseEvent event){
         if(event.getClickCount() == 2) {
@@ -77,7 +58,7 @@ public class HomeController implements Initializable {
 
             if (clickedTitle != null) {
                 try {
-                    String articleContent = articleContentFetcher(clickedTitle);
+                    String articleContent = DataBaseHandler.articleContentFetcher(clickedTitle);
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/FullArticle.fxml"));
                     Scene scene = new Scene(loader.load());
@@ -106,7 +87,7 @@ public class HomeController implements Initializable {
 
             if (clickedTitle != null) {
                 try {
-                    String articleContent = articleContentFetcher(clickedTitle);
+                    String articleContent = DataBaseHandler.articleContentFetcher(clickedTitle);
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/FullArticle.fxml"));
                     Scene scene = new Scene(loader.load());
@@ -129,23 +110,7 @@ public class HomeController implements Initializable {
         }
     }
 
-    public String articleContentFetcher(String title){
-        ArrayList<String> content = new ArrayList<>();
-        String query = "SELECT content FROM article WHERE Title = ?";
-        try(Connection connection = DriverManager.getConnection(url,user_db,password)) {
-            PreparedStatement stmt = connection.prepareStatement((query));
-            stmt.setString(1,title);
-            ResultSet resultSet = stmt.executeQuery();
 
-            if (resultSet.next()){
-                return resultSet.getString("content");
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return "Article content not accessible";
-    }
 
     public void setUser(User user) {
         this.user = user;
