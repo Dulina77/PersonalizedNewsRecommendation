@@ -32,11 +32,6 @@ public class LoginPageController {
     private String LogIn_username;
     private String LogIn_password;
 
-    String url = "jdbc:mysql://localhost:3306/news";
-    String user_db = "root";
-    String password = "Dulina@123";
-
-
 
     public void switchToRegisterPage(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("RegisterPage.fxml"));
@@ -46,7 +41,7 @@ public class LoginPageController {
         stage.show();
     }
 
-    public void switchToAdminPage(ActionEvent event) throws IOException {
+    public void switchToAdminPage(ActionEvent event, Admin admin) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("AdminPage.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -67,13 +62,14 @@ public class LoginPageController {
         stage.show();
     }
 
+
     public void login(ActionEvent actionEvent) throws IOException, SQLException {
         LogIn_username = logInUserName.getText();
         LogIn_password = logInPassword.getText();
 
         boolean validity = validate(LogIn_username,LogIn_password);
         if(validity){
-            List<String> userDetails = getUserAttributes(LogIn_username);
+            List<String> userDetails = DataBaseHandler.getUserAttributes(LogIn_username);
             User user = new User(LogIn_username,LogIn_password,userDetails.get(2),userDetails.get(0),userDetails.get(1));
             switchToMainPage(actionEvent,user);
         }
@@ -81,9 +77,9 @@ public class LoginPageController {
     }
 
     public boolean validate(String username, String password) throws IOException {
-        boolean isExistingUser = userNameCheck(username);
+        boolean isExistingUser = DataBaseHandler.userNameCheck(username);
         if(isExistingUser){
-            String savedPassword = passwordChecker(username);
+            String savedPassword = DataBaseHandler.passwordChecker(username);
             if(savedPassword.equals(password)){
                 return true;
             }else {
@@ -98,65 +94,42 @@ public class LoginPageController {
 
     }
 
-    public boolean userNameCheck(String username){
-        String query = "SELECT * FROM user_final WHERE user_name = ?";
-        boolean result = false;
 
-        try(Connection connection = DriverManager.getConnection(url,user_db,password)) {
-            PreparedStatement stmt = connection.prepareStatement((query));
-            stmt.setString(1,username);
 
-            ResultSet resultSet = stmt.executeQuery();
 
-            result = resultSet.next();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+
+
+    public void loginAsAdmin(ActionEvent actionEvent) throws IOException, SQLException {
+        LogIn_username = logInUserName.getText();
+        LogIn_password = logInPassword.getText();
+
+        boolean validity = validateAdmin(LogIn_username,LogIn_password);
+        if(validity){
+            List<String> AdminDetails = DataBaseHandler.getAdminAttributes(LogIn_username);
+            Admin admin = new Admin(LogIn_username,LogIn_password,AdminDetails.get(2),AdminDetails.get(0),AdminDetails.get(1));
+            switchToAdminPage(actionEvent,admin);
         }
-        return result;
+
     }
 
-    public String passwordChecker(String username){
-        String query = "SELECT password from user_final WHERE user_name = ?";
-        String result = null;
-        try(Connection connection = DriverManager.getConnection(url,user_db,password)) {
-            PreparedStatement stmt = connection.prepareStatement((query));
-            stmt.setString(1,username);
-
-            ResultSet resultSet = stmt.executeQuery();
-
-            if(resultSet.next()){
-                result = resultSet.getString("password");
+    public boolean validateAdmin(String username, String password) throws IOException {
+        boolean isExistingUser = DataBaseHandler.userNameCheckAdmin(username);
+        if(isExistingUser){
+            String savedPassword = DataBaseHandler.passwordCheckerAdmin(username);
+            if(savedPassword.equals(password)){
+                return true;
+            }else {
+                failureMessage.setText("Incorrect Password. Please Try Again");
             }
 
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        }else {
+            System.out.println("Not a registered Admin. Please register into the system.");
+            failureMessage.setText("Not a registered Admin. Please register into the system");
         }
-        return result;
-    }
-
-    public List<String> getUserAttributes(String username) throws SQLException {
-
-        List<String> result = new ArrayList<>();
-
-        String query = "Select first_name,last_name,email FROM user_final WHERE user_name = ?";
-        try(Connection connection = DriverManager.getConnection(url,user_db,password)) {
-            PreparedStatement stmt = connection.prepareStatement((query));
-            stmt.setString(1,username);
-
-            ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()){
-
-                result.add(resultSet.getString("first_name"));
-                result.add(resultSet.getString("last_name"));
-                result.add(resultSet.getString("email"));
-            }
-
-        return result;
-
+        return false;
 
     }
-
-}}
+}
 
