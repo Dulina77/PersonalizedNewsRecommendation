@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.FullArticleAdminController">
+    <children>
+        <Label fx:id="TitleSpace" prefHeight="63.0" prefWidth="599.0" />
+        <TextArea fx:id="contentSpace" prefHeight="298.0" wrapText="true" />
+        <AnchorPane prefHeight="124.0" prefWidth="600.0">
+            <children>
+                <Button fx:id="BackButton" layoutX="21.0" layoutY="36.0" mnemonicParsing="false" onAction="#BackToAdminPage" text="Back To Admin Page" />
+                <Button fx:id="UpdateArticle" layoutX="390.0" layoutY="35.0" mnemonicParsing="false" onAction="#UpdateArticle" text="Update Article" />
+                <Button fx:id="DeleteArticle" layoutX="506.0" layoutY="36.0" mnemonicParsing="false" onAction="#DeleteArticle" text="Delete Article" />
+            <Label fx:id="SuccessMessage" layoutX="22.0" layoutY="14.0" prefHeight="17.0" prefWidth="571.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

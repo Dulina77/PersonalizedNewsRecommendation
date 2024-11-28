@@ -12,7 +12,6 @@
       <ListView fx:id="MainNewsList" layoutX="25.0" layoutY="65.0" prefHeight="270.0" prefWidth="383.0" />
       <Label fx:id="welcomeMessage" layoutX="42.0" layoutY="31.0" text="Label" />
       <Button fx:id="addArticleButton" layoutX="471.0" layoutY="322.0" mnemonicParsing="false" onAction="#AddArticle" text="Add Article" />
-      <Button fx:id="updateArticlesButton" layoutX="208.0" layoutY="354.0" mnemonicParsing="false" text="Update Articles" />
       <Button fx:id="BackButton" layoutX="49.0" layoutY="354.0" mnemonicParsing="false" onAction="#logout" text="Log Out" />
       <TextField fx:id="newArticleTitle" layoutX="437.0" layoutY="52.0" />
       <TextArea fx:id="newArticleContent" layoutX="437.0" layoutY="113.0" prefHeight="200.0" prefWidth="149.0" />

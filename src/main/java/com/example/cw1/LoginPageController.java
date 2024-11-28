@@ -42,7 +42,12 @@ public class LoginPageController {
     }
 
     public void switchToAdminPage(ActionEvent event, Admin admin) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("AdminPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminPage.fxml"));
+        Parent root = loader.load();
+
+        AdminPageController homeController =  loader.getController();
+        homeController.setAdmin(admin);
+
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -73,7 +78,6 @@ public class LoginPageController {
             User user = new User(LogIn_username,LogIn_password,userDetails.get(2),userDetails.get(0),userDetails.get(1));
             switchToMainPage(actionEvent,user);
         }
-
     }
 
     public boolean validate(String username, String password) throws IOException {
@@ -85,7 +89,6 @@ public class LoginPageController {
             }else {
                 failureMessage.setText("Incorrect Password. Please Try Again");
             }
-
         }else {
             System.out.println("Not a registered user. Please register into the system.");
             failureMessage.setText("Not a registered user. Please register into the system");
@@ -93,11 +96,6 @@ public class LoginPageController {
         return false;
 
     }
-
-
-
-
-
 
 
 

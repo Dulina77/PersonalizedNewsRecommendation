@@ -103,13 +103,12 @@ public class DataBaseHandler {
             if(resultSet.next()){
                 result = resultSet.getString("password");
             }
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return result;
     }
+
 
     public static String passwordCheckerAdmin(String username){
         String query = "SELECT password from admin WHERE user_name = ?";
@@ -129,6 +128,7 @@ public class DataBaseHandler {
         }
         return result;
     }
+
 
     public static List<String> getAdminAttributes(String username) throws SQLException {
 
@@ -289,6 +289,8 @@ public class DataBaseHandler {
         }
     }
 
+
+
     public static String articleContentFetcher(String title){
         String query = "SELECT content FROM article WHERE Title = ?";
         try(Connection connection = DataBase.getConnection()) {
@@ -356,4 +358,35 @@ public class DataBaseHandler {
             throw new RuntimeException(e);
         }
     }
+
+    public static boolean deleteArticle(String title) {
+        String query = "DELETE FROM article WHERE Title = ?";
+        try (Connection connection = DataBase.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, title);
+            int rowsAffected = stmt.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while deleting the article: " + title, e);
+        }
+    }
+
+    public static void articleContentUpdater(String title,String Newcontent){
+        String query = "UPDATE article SET content = ? WHERE Title = ?";
+        try(Connection connection = DataBase.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement((query));
+            stmt.setString(1,Newcontent);
+            stmt.setString(2,title);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+
+
 }
