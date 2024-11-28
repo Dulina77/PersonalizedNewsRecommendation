@@ -47,7 +47,6 @@ public class FullArticleController {
         TitleSpace.setText(title);
         article = DataBaseHandler.getArticleDetails(title);
         articleId = article.getArticleId();
-
     }
 
     public void BackToHomePage(ActionEvent event) throws IOException {
@@ -84,6 +83,7 @@ public class FullArticleController {
         DataBaseHandler.recordScores(user.getUserName(),articleId,article.getCategory(),+3);
         user.getProfile().addToHistory(article);
     }
+
 
 
 

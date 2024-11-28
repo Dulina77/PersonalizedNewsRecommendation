@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 public class AdminPageController extends HomeController{
 
     @FXML
+    private Button DeleteArticlesButton;
+    @FXML
     private Label SuccessMessage;
     @FXML
     private TextArea newArticleContent;
@@ -29,16 +31,38 @@ public class AdminPageController extends HomeController{
     @FXML
     private Button BackButton;
     @FXML
-    private Button updateArticlesButton;
-    @FXML
     private Button addArticleButton;
+
+    private Admin admin;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MainNewsList.getItems().addAll(newsTitles);
-        MainNewsList.setOnMouseClicked((this::articleSelectionMain));
+        MainNewsList.setOnMouseClicked((this::articleSelection));    }
+
+
+    public void logout(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    public void articleSelectionMain(javafx.scene.input.MouseEvent event){
+
+    @FXML
+    private void AddArticle() throws SQLException, IOException {
+        String title = newArticleTitle.getText();
+        String content = newArticleContent.getText();
+
+        admin.AddArticle(title,content);
+        SuccessMessage.setText("Article Added Successfully");
+    }
+
+    void setAdmin(Admin admin){
+        this.admin = admin;
+    }
+
+    public void articleSelection(javafx.scene.input.MouseEvent event){
         if(event.getClickCount() == 2) {
             String clickedTitle = (String) MainNewsList.getSelectionModel().getSelectedItem();
 
@@ -46,11 +70,13 @@ public class AdminPageController extends HomeController{
                 try {
                     String articleContent = DataBaseHandler.articleContentFetcher(clickedTitle);
 
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/FullArticle.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/FullArticleAdmin.fxml"));
                     Scene scene = new Scene(loader.load());
 
-                    FullArticleController controller = loader.getController();
+                    FullArticleAdminController controller = loader.getController();
                     controller.setArticleDetails(clickedTitle, articleContent);
+                    controller.setAdmin(admin);
+
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
                 } catch (IOException e) {
@@ -63,27 +89,9 @@ public class AdminPageController extends HomeController{
         }
     }
 
-    public void logout(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    private void AddArticle() throws IOException, SQLException {
-        String title = newArticleTitle.getText();
-        String content = newArticleContent.getText();
-
-        KeywordExtraction keywordExtraction = new KeywordExtraction();
-        String category = keywordExtraction.categorizeArticle(content);
-
-        DataBaseHandler.insertArticle(title,content,category);
-        SuccessMessage.setText("Article Added Successfully");
 
 
-    }
+
 
 
 }
