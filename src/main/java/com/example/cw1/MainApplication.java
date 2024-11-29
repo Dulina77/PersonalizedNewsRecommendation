@@ -17,6 +17,7 @@ public class MainApplication extends Application {
             stage.setTitle("Your News Recommendation Application");
             stage.setScene(scene);
             stage.show();
+            System.out.println(Thread.currentThread().getName());
         } catch (Exception e) {
             e.printStackTrace();
         }

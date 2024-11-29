@@ -29,15 +29,12 @@ public class HistoryController {
 
     public void setUser(User user) {
         this.user = user;
-        // Once the user is set, populate the history table
         loadHistoryTable();
     }
 
     public void loadHistoryTable() {
         if (user != null) {
-            // Get the news titles history from the database
             ArrayList<String> newsTitlesHistory = getNewsTitlesHistory(user);
-            // Set the items in the ListView
             HistoryTable.getItems().setAll(newsTitlesHistory);
         }
     }
@@ -62,11 +59,16 @@ public class HistoryController {
     }
 
     public void BackToHome(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
+        Scene scene = new Scene(loader.load());
+
+        HomeController controller = loader.getController();
+        controller.setUser(user);
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
     }
+
+
 
 }

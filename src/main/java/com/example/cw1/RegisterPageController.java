@@ -1,5 +1,6 @@
 package com.example.cw1;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,28 +71,37 @@ public class RegisterPageController {
         FirstName = firstNameField.getText();
         LastName = lastNameField.getText();
 
-
-        validate(UserName,User_password,eMail,FirstName,LastName,event);
-
-    }
-
-    public void validate(String UserName, String User_password, String eMail, String FirstName, String LastName, ActionEvent actionEvent) throws IOException, SQLException {
-        boolean isExistingUser = DataBaseHandler.userNameCheck(UserName);
-        if(isExistingUser){
-            systemResponse.setText("The username is already taken");
-        }else {
-            if(!eMailChecker(eMail)){
-                systemResponse.setText("Invalid Email Address");
-            }else {
-                User user = new User(UserName,User_password,eMail,FirstName,LastName);
-                DataBaseHandler.insertUser(user);
-                systemResponse.setText("User Registration Successful");
+        Thread registerThread = new Thread(() -> {
+            try {
+                validate(UserName, User_password, eMail, FirstName, LastName, event);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Platform.runLater(() -> systemResponse.setText("An error occurred. Please try again."));
             }
-
-        }
+        });
+        registerThread.start();
 
     }
 
+    public void validate(String UserName, String User_password, String eMail, String FirstName, String LastName, ActionEvent actionEvent) throws SQLException {
+        try {
+            boolean isExistingUser = DataBaseHandler.userNameCheck(UserName);
+            if (isExistingUser) {
+                Platform.runLater(() -> systemResponse.setText("The username is already taken"));
+            } else {
+                if (!eMailChecker(eMail)) {
+                    Platform.runLater(() -> systemResponse.setText("Invalid Email Address"));
+                } else {
+                    User user = new User(UserName, User_password, eMail, FirstName, LastName);
+                    DataBaseHandler.insertUser(user);
+                    Platform.runLater(() -> systemResponse.setText("User Registration Successful"));
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            Platform.runLater(() -> systemResponse.setText("An error occurred during registration. Please try again."));
+        }
+    }
 
 
 
@@ -103,12 +113,6 @@ public class RegisterPageController {
 
 
 
-
-
-
-
-
-
     public void registerAsAdmin(ActionEvent event) throws IOException {
         UserName = RegistrationUserName.getText();
         User_password = RegistrationPassword.getText();
@@ -116,44 +120,40 @@ public class RegisterPageController {
         FirstName = firstNameField.getText();
         LastName = lastNameField.getText();
 
+        Thread adminRegisterThread = new Thread(() -> {
+            try {
+                validateAdmin(UserName, User_password, eMail, FirstName, LastName, event);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Platform.runLater(() -> systemResponse.setText("An error occurred. Please try again."));
+            }
+        });
 
-        validateAdmin(UserName,User_password,eMail,FirstName,LastName,event);
-
+        adminRegisterThread.start();
     }
 
     public void validateAdmin(String UserName, String User_password, String eMail, String FirstName, String LastName, ActionEvent actionEvent) throws IOException {
-        boolean isExistingUser = DataBaseHandler.userNameCheckAdmin(UserName);
-        if(isExistingUser){
-            systemResponse.setText("The Admin username is already taken");
-        }else {
-            if(!eMailChecker(eMail)){
-                systemResponse.setText("Invalid Email Address");
+        try {
+            boolean isExistingUser = DataBaseHandler.userNameCheckAdmin(UserName);
+            if(isExistingUser){
+                Platform.runLater(() -> systemResponse.setText("The Admin username is already taken"));
             }else {
-                Admin admin = new Admin(UserName,User_password,eMail,FirstName,LastName);
-                DataBaseHandler.insertAdmin(admin);
-                systemResponse.setText("Admin Registration Successful");
+                if(!eMailChecker(eMail)){
+                    Platform.runLater(() -> systemResponse.setText("Invalid Email Address"));
+                }else {
+                    Admin admin = new Admin(UserName,User_password,eMail,FirstName,LastName);
+                    DataBaseHandler.insertAdmin(admin);
+                    Platform.runLater(() -> systemResponse.setText("Admin Registration Successful"));
+                }
+
             }
-
+        }catch (Exception e) {
+            e.printStackTrace();
+            Platform.runLater(() -> systemResponse.setText("An error occurred during admin registration. Please try again."));
         }
-
     }
 
-//    public boolean userNameCheckAdmin(String username){
-//        String query = "SELECT * FROM admin WHERE user_name = ?";
-//        boolean result = false;
-//
-//        try(Connection connection = DriverManager.getConnection(url,user,password)) {
-//            PreparedStatement stmt = connection.prepareStatement((query));
-//            stmt.setString(1,username);
-//            ResultSet resultSet = stmt.executeQuery();
-//            result = resultSet.next();
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return result;
-//
-//    }
+
 
 
 

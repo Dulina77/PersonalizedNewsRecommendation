@@ -1,5 +1,6 @@
 package com.example.cw1;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +32,7 @@ public class LoginPageController {
 
     private String LogIn_username;
     private String LogIn_password;
+
 
 
     public void switchToRegisterPage(ActionEvent event) throws IOException {
@@ -68,19 +70,37 @@ public class LoginPageController {
     }
 
 
-    public void login(ActionEvent actionEvent) throws IOException, SQLException {
+    public void login(ActionEvent actionEvent) {
         LogIn_username = logInUserName.getText();
         LogIn_password = logInPassword.getText();
 
-        boolean validity = validate(LogIn_username,LogIn_password);
-        if(validity){
-            List<String> userDetails = DataBaseHandler.getUserAttributes(LogIn_username);
-            User user = new User(LogIn_username,LogIn_password,userDetails.get(2),userDetails.get(0),userDetails.get(1));
-            switchToMainPage(actionEvent,user);
-        }
+        Thread loginThread = new Thread(() -> {
+            try {
+                boolean isValid = validate(LogIn_username, LogIn_password);
+                if (isValid) {
+                    List<String> userDetails = DataBaseHandler.getUserAttributes(LogIn_username);
+                    User user = new User(LogIn_username, LogIn_password, userDetails.get(2), userDetails.get(0), userDetails.get(1));
+
+                    Platform.runLater(() -> {
+                        try {
+                            switchToMainPage(actionEvent, user);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                } else {
+                    Platform.runLater(() -> failureMessage.setText("Invalid username or password. Please try again."));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Platform.runLater(() -> failureMessage.setText("An error occurred. Please try again."));
+            }
+        });
+
+        loginThread.start();
     }
 
-    public boolean validate(String username, String password) throws IOException {
+        public boolean validate(String username, String password) throws IOException {
         boolean isExistingUser = DataBaseHandler.userNameCheck(username);
         if(isExistingUser){
             String savedPassword = DataBaseHandler.passwordChecker(username);
@@ -94,27 +114,48 @@ public class LoginPageController {
             failureMessage.setText("Not a registered user. Please register into the system");
         }
         return false;
-
     }
 
 
 
-    public void loginAsAdmin(ActionEvent actionEvent) throws IOException, SQLException {
+    public void loginAsAdmin(ActionEvent actionEvent) {
         LogIn_username = logInUserName.getText();
         LogIn_password = logInPassword.getText();
 
-        boolean validity = validateAdmin(LogIn_username,LogIn_password);
-        if(validity){
-            List<String> AdminDetails = DataBaseHandler.getAdminAttributes(LogIn_username);
-            Admin admin = new Admin(LogIn_username,LogIn_password,AdminDetails.get(2),AdminDetails.get(0),AdminDetails.get(1));
-            switchToAdminPage(actionEvent,admin);
+        if (LogIn_username == null || LogIn_username.isEmpty() || LogIn_password == null || LogIn_password.isEmpty()) {
+            failureMessage.setText("Please fill in both username and password.");
+            return;
         }
 
+        Thread adminLoginThread = new Thread(() -> {
+            try {
+                boolean validity = validateAdmin(LogIn_username, LogIn_password);
+                if (validity) {
+                    List<String> AdminDetails = DataBaseHandler.getAdminAttributes(LogIn_username);
+                    Admin admin = new Admin(LogIn_username, LogIn_password, AdminDetails.get(2), AdminDetails.get(0), AdminDetails.get(1));
+
+                    Platform.runLater(() -> {
+                        try {
+                            switchToAdminPage(actionEvent, admin);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            failureMessage.setText("Error navigating to the Admin page.");
+                        }
+                    });
+                } else {
+                    Platform.runLater(() -> failureMessage.setText("Invalid admin credentials. Please try again."));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Platform.runLater(() -> failureMessage.setText("An error occurred during admin login. Please try again."));
+            }
+        });
+        adminLoginThread.start();
     }
 
     public boolean validateAdmin(String username, String password) throws IOException {
-        boolean isExistingUser = DataBaseHandler.userNameCheckAdmin(username);
-        if(isExistingUser){
+        boolean isExistingAdmin = DataBaseHandler.userNameCheckAdmin(username);
+        if(isExistingAdmin){
             String savedPassword = DataBaseHandler.passwordCheckerAdmin(username);
             if(savedPassword.equals(password)){
                 return true;

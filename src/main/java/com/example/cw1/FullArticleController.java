@@ -67,22 +67,18 @@ public class FullArticleController {
     }
 
     public void onLikeButtonClick(ActionEvent actionEvent) throws SQLException {
-        DataBaseHandler.recordAction(user.getUserName(),articleId, "Liked");
-        DataBaseHandler.recordScores(user.getUserName(),articleId, article.getCategory(), +4);
-        user.getProfile().addToLiked(article);
+        user.recordLike(article);
     }
 
     public void onDislIkeButtonClick(ActionEvent actionEvent) throws SQLException {
-        DataBaseHandler.recordAction(user.getUserName(),articleId, "Disliked");
-        DataBaseHandler.recordScores(user.getUserName(),articleId,article.getCategory(),-4);
-        user.getProfile().addToDisliked(article);
+        user.recordDislike(article);
     }
 
     public void onOpen(javafx.scene.input.MouseEvent event) throws SQLException {
-        DataBaseHandler.recordAction(user.getUserName(),articleId, "viewed");
-        DataBaseHandler.recordScores(user.getUserName(),articleId,article.getCategory(),+3);
-        user.getProfile().addToHistory(article);
+        user.recordRead(article);
     }
+
+
 
 
 
