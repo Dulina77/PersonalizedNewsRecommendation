@@ -46,15 +46,11 @@ public class FullArticleAdminController {
     }
 
     public void DeleteArticle(ActionEvent event) {
+        ButtonType response = alertMessage(articleTitle, "delete");
 
-        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationAlert.setTitle("Delete Confirmation");
-        confirmationAlert.setHeaderText("Are you sure you want to delete this article?");
-        confirmationAlert.setContentText(articleTitle);
-
-        if (confirmationAlert.showAndWait().get() == ButtonType.OK) {
+        if (response == ButtonType.OK) {
             try {
-                boolean success = DataBaseHandler.deleteArticle(articleTitle);
+                boolean success = admin.DeleteArticle(articleTitle);
                 if (success) {
                     SuccessMessage.setText("Article Deleted Successfully");
                 }
@@ -65,16 +61,12 @@ public class FullArticleAdminController {
     }
 
     public void UpdateArticle(ActionEvent event){
-        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationAlert.setTitle("Update Confirmation");
-        confirmationAlert.setHeaderText("Are you sure you want to update this article?");
-        confirmationAlert.setContentText(articleTitle);
-
+        ButtonType response = alertMessage(articleTitle, "update");
         String updatedContent = contentSpace.getText();
 
-        if (confirmationAlert.showAndWait().get() == ButtonType.OK) {
+        if (response == ButtonType.OK) {
             try {
-                DataBaseHandler.articleContentUpdater(articleTitle, updatedContent);
+                admin.UpdateArticle(articleTitle, updatedContent);
                 SuccessMessage.setText("Article Updated Successfully");
                 article.setContent(updatedContent);
 
@@ -88,8 +80,29 @@ public class FullArticleAdminController {
     public void BackToAdminPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminPage.fxml"));
         Parent root = loader.load();
+
+        AdminPageController controller = loader.getController();
+        controller.setAdmin(admin);
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public ButtonType alertMessage(String articleTitle, String type){
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        if(type.equals("update")){
+            confirmationAlert.setTitle("Update Confirmation");
+            confirmationAlert.setHeaderText("Are you sure you want to update this article?");
+        }
+        if (type.equals("delete")){
+            confirmationAlert.setTitle("Delete Confirmation");
+            confirmationAlert.setHeaderText("Are you sure you want to delete this article?");
+        }
+        confirmationAlert.setContentText(articleTitle);
+
+        return confirmationAlert.showAndWait().get();
+
     }
 }

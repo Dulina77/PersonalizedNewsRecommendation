@@ -1,5 +1,7 @@
 package com.example.cw1;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class User {
@@ -8,7 +10,6 @@ public class User {
     private String userName;
     private String email;
     private String password;
-    private UserProfile profile;
 
 
     public User(String username, String password) {
@@ -22,7 +23,6 @@ public class User {
         this.password = password;
         this.FirstName = firstName;
         this.LastName = lastName;
-        this.profile = new UserProfile();
     }
 
 
@@ -67,11 +67,22 @@ public class User {
         LastName = lastName;
     }
 
-    public UserProfile getProfile() {
-        return profile;
+    public void recordLike(Article article) throws SQLException {
+        DataBaseHandler.recordAction(userName,article.getArticleId(), "Liked");
+        DataBaseHandler.recordScores(userName,article.getArticleId(), article.getCategory(), +4);
     }
 
-    public void setProfile(UserProfile profile) {
-        this.profile = profile;
+    public void recordDislike(Article article) throws SQLException {
+        DataBaseHandler.recordAction(userName,article.getArticleId(), "Disliked");
+        DataBaseHandler.recordScores(userName,article.getArticleId(), article.getCategory(), +4);
     }
+
+    public void recordRead(Article article) throws SQLException {
+        DataBaseHandler.recordAction(userName,article.getArticleId(), "viewed");
+        DataBaseHandler.recordScores(userName, article.getArticleId(), article.getCategory(),+3);
+    }
+
+
+
+
 }

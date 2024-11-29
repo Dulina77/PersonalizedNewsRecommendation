@@ -20,4 +20,14 @@ public class Admin extends User{
         DataBaseHandler.insertArticle(newArticleTitle,newArticleContent,category);
     }
 
+    public boolean DeleteArticle(String articleTitle){
+        boolean success = DataBaseHandler.deleteArticle(articleTitle);
+        return success;
+    }
+
+    public void UpdateArticle(String articleTitle, String updatedContent){
+        DataBaseHandler.articleContentUpdater(articleTitle, updatedContent);
+    }
+
+
 }

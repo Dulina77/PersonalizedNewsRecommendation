@@ -20,4 +20,15 @@ public class UserProfile {
         dislikeHistory.add(article);
     }
 
+    public ArrayList<Article> getLikeHistory() {
+        return likeHistory;
+    }
+
+    public ArrayList<Article> getDislikeHistory() {
+        return dislikeHistory;
+    }
+
+    public ArrayList<Article> getReadingHistory() {
+        return readingHistory;
+    }
 }
