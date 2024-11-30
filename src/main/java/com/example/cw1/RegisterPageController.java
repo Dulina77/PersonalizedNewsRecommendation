@@ -71,6 +71,11 @@ public class RegisterPageController {
         FirstName = firstNameField.getText();
         LastName = lastNameField.getText();
 
+        if(UserName == null || UserName.isEmpty() || User_password == null || User_password.isEmpty() || eMail == null || eMail.isEmpty() || FirstName == null || FirstName.isEmpty() || LastName == null || LastName.isEmpty() ) {
+            Platform.runLater(() -> systemResponse.setText("Fill all fields to continue"));
+            return;
+        }
+
         Thread registerThread = new Thread(() -> {
             try {
                 validate(UserName, User_password, eMail, FirstName, LastName, event);
@@ -88,15 +93,22 @@ public class RegisterPageController {
             boolean isExistingUser = DataBaseHandler.userNameCheck(UserName);
             if (isExistingUser) {
                 Platform.runLater(() -> systemResponse.setText("The username is already taken"));
-            } else {
-                if (!eMailChecker(eMail)) {
-                    Platform.runLater(() -> systemResponse.setText("Invalid Email Address"));
-                } else {
-                    User user = new User(UserName, User_password, eMail, FirstName, LastName);
-                    DataBaseHandler.insertUser(user);
-                    Platform.runLater(() -> systemResponse.setText("User Registration Successful"));
-                }
+                return;
             }
+            if (!eMailChecker(eMail)) {
+                Platform.runLater(() -> systemResponse.setText("Invalid Email Address"));
+                return;
+            }
+            if (!validatePassword(User_password)) {
+                Platform.runLater(() -> systemResponse.setText("Password must be at least 5 characters long"));
+                return;
+            }
+
+            User user = new User(UserName, User_password, eMail, FirstName, LastName);
+            DataBaseHandler.insertUser(user);
+            Platform.runLater(() -> systemResponse.setText("User Registration Successful"));
+
+
         }catch (Exception e) {
             e.printStackTrace();
             Platform.runLater(() -> systemResponse.setText("An error occurred during registration. Please try again."));
@@ -105,11 +117,6 @@ public class RegisterPageController {
 
 
 
-    public boolean eMailChecker(String email) {
-        String emailRegex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        return pattern.matcher(email).matches();
-    }
 
 
 
@@ -119,6 +126,11 @@ public class RegisterPageController {
         eMail = RegistrationEmail.getText();
         FirstName = firstNameField.getText();
         LastName = lastNameField.getText();
+
+        if(UserName == null || UserName.isEmpty() || User_password == null || User_password.isEmpty() || eMail == null || eMail.isEmpty() || FirstName == null || FirstName.isEmpty() || LastName == null || LastName.isEmpty() ) {
+            Platform.runLater(() -> systemResponse.setText("Fill all fields to continue"));
+            return;
+        }
 
         Thread adminRegisterThread = new Thread(() -> {
             try {
@@ -135,18 +147,24 @@ public class RegisterPageController {
     public void validateAdmin(String UserName, String User_password, String eMail, String FirstName, String LastName, ActionEvent actionEvent) throws IOException {
         try {
             boolean isExistingUser = DataBaseHandler.userNameCheckAdmin(UserName);
-            if(isExistingUser){
+            if(isExistingUser) {
                 Platform.runLater(() -> systemResponse.setText("The Admin username is already taken"));
-            }else {
-                if(!eMailChecker(eMail)){
-                    Platform.runLater(() -> systemResponse.setText("Invalid Email Address"));
-                }else {
-                    Admin admin = new Admin(UserName,User_password,eMail,FirstName,LastName);
-                    DataBaseHandler.insertAdmin(admin);
-                    Platform.runLater(() -> systemResponse.setText("Admin Registration Successful"));
-                }
-
+                return;
             }
+            if(!eMailChecker(eMail)){
+                Platform.runLater(() -> systemResponse.setText("Invalid Email Address"));
+                return;
+            }
+            if (!validatePassword(User_password)) {
+                Platform.runLater(() -> systemResponse.setText("Password must be at least 5 characters long"));
+                return;
+            }
+
+            Admin admin = new Admin(UserName,User_password,eMail,FirstName,LastName);
+            DataBaseHandler.insertAdmin(admin);
+            Platform.runLater(() -> systemResponse.setText("Admin Registration Successful"));
+
+
         }catch (Exception e) {
             e.printStackTrace();
             Platform.runLater(() -> systemResponse.setText("An error occurred during admin registration. Please try again."));
@@ -154,6 +172,16 @@ public class RegisterPageController {
     }
 
 
+
+    public boolean eMailChecker(String email) {
+        String emailRegex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
+    }
+
+    public boolean validatePassword(String password) {
+        return password != null && password.length() >= 5;
+    }
 
 
 

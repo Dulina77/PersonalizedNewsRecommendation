@@ -74,6 +74,11 @@ public class LoginPageController {
         LogIn_username = logInUserName.getText();
         LogIn_password = logInPassword.getText();
 
+        if(LogIn_username == null || LogIn_username.isEmpty() || LogIn_password == null || LogIn_password.isEmpty()) {
+            Platform.runLater(() -> failureMessage.setText("Fill all fields to continue"));
+            return;
+        }
+
         Thread loginThread = new Thread(() -> {
             try {
                 boolean isValid = validate(LogIn_username, LogIn_password);
@@ -91,13 +96,16 @@ public class LoginPageController {
                 } else {
                     Platform.runLater(() -> failureMessage.setText("Invalid username or password. Please try again."));
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 Platform.runLater(() -> failureMessage.setText("An error occurred. Please try again."));
             }
+
         });
 
         loginThread.start();
+
     }
 
         public boolean validate(String username, String password) throws IOException {
@@ -107,11 +115,11 @@ public class LoginPageController {
             if(savedPassword.equals(password)){
                 return true;
             }else {
-                failureMessage.setText("Incorrect Password. Please Try Again");
+                Platform.runLater(() -> failureMessage.setText("Incorrect Password. Please Try Again"));
             }
         }else {
             System.out.println("Not a registered user. Please register into the system.");
-            failureMessage.setText("Not a registered user. Please register into the system");
+            Platform.runLater(() -> failureMessage.setText("Not a registered user. Please register into the system"));
         }
         return false;
     }
@@ -122,8 +130,8 @@ public class LoginPageController {
         LogIn_username = logInUserName.getText();
         LogIn_password = logInPassword.getText();
 
-        if (LogIn_username == null || LogIn_username.isEmpty() || LogIn_password == null || LogIn_password.isEmpty()) {
-            failureMessage.setText("Please fill in both username and password.");
+        if(LogIn_username == null || LogIn_username.isEmpty() || LogIn_password == null || LogIn_password.isEmpty()) {
+            Platform.runLater(() -> failureMessage.setText("Fill all fields to continue"));
             return;
         }
 
