@@ -108,7 +108,7 @@ public class LoginPageController {
 
     }
 
-        public boolean validate(String username, String password) throws IOException {
+    public boolean validate(String username, String password) throws IOException {
         boolean isExistingUser = DataBaseHandler.userNameCheck(username);
         if(isExistingUser){
             String savedPassword = DataBaseHandler.passwordChecker(username);
@@ -135,45 +135,25 @@ public class LoginPageController {
             return;
         }
 
-        Thread adminLoginThread = new Thread(() -> {
-            try {
-                boolean validity = validateAdmin(LogIn_username, LogIn_password);
-                if (validity) {
-                    List<String> AdminDetails = DataBaseHandler.getAdminAttributes(LogIn_username);
-                    Admin admin = new Admin(LogIn_username, LogIn_password, AdminDetails.get(2), AdminDetails.get(0), AdminDetails.get(1));
-
-                    Platform.runLater(() -> {
-                        try {
-                            switchToAdminPage(actionEvent, admin);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            failureMessage.setText("Error navigating to the Admin page.");
-                        }
-                    });
-                } else {
-                    Platform.runLater(() -> failureMessage.setText("Invalid admin credentials. Please try again."));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Platform.runLater(() -> failureMessage.setText("An error occurred during admin login. Please try again."));
+        try {
+            boolean validity = validateAdmin(LogIn_username, LogIn_password);
+            if (validity) {
+                Admin admin = new Admin(LogIn_username, LogIn_password);
+                switchToAdminPage(actionEvent, admin);
+            } else {
+                failureMessage.setText("Invalid admin credentials. Please try again.");
             }
-        });
-        adminLoginThread.start();
+        }catch (Exception e) {
+            e.printStackTrace();
+            Platform.runLater(() -> failureMessage.setText("An error occurred during admin login. Please try again."));
+        }
+
+
     }
 
-    public boolean validateAdmin(String username, String password) throws IOException {
-        boolean isExistingAdmin = DataBaseHandler.userNameCheckAdmin(username);
-        if(isExistingAdmin){
-            String savedPassword = DataBaseHandler.passwordCheckerAdmin(username);
-            if(savedPassword.equals(password)){
-                return true;
-            }else {
-                failureMessage.setText("Incorrect Password. Please Try Again");
-            }
-
-        }else {
-            System.out.println("Not a registered Admin. Please register into the system.");
-            failureMessage.setText("Not a registered Admin. Please register into the system");
+    public boolean validateAdmin(String username, String password) {
+        if(username.equals("admin") && password.equals("admin123")){
+            return true;
         }
         return false;
 

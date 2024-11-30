@@ -45,7 +45,6 @@ public class ManageAccountConroller {
     public void setUser(User user){
         this.user = user;
         setValues(user);
-
     }
 
     public void setValues(User user){

@@ -13,7 +13,6 @@
         <AnchorPane prefHeight="124.0" prefWidth="600.0">
             <children>
                 <Button fx:id="BackButton" layoutX="21.0" layoutY="36.0" mnemonicParsing="false" onAction="#BackToAdminPage" text="Back To Admin Page" />
-                <Button fx:id="UpdateArticle" layoutX="390.0" layoutY="35.0" mnemonicParsing="false" onAction="#UpdateArticle" text="Update Article" />
                 <Button fx:id="DeleteArticle" layoutX="506.0" layoutY="36.0" mnemonicParsing="false" onAction="#DeleteArticle" text="Delete Article" />
             <Label fx:id="SuccessMessage" layoutX="22.0" layoutY="14.0" prefHeight="17.0" prefWidth="571.0" />
             </children>

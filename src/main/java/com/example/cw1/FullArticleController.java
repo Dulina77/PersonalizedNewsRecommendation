@@ -21,6 +21,8 @@ import java.sql.*;
 public class FullArticleController {
 
     @FXML
+    private Label categoryLabel;
+    @FXML
     private Button BackButton;
     @FXML
     private Button LikeButton;
@@ -32,21 +34,19 @@ public class FullArticleController {
     private Label TitleSpace;
 
     private User user = null;
-    private String articleTitle = null;
-    private String articleContent = null;
-    private int articleId;
+
+
     Article article;
 
 
 
 
     public void setArticleDetails(String title, String content) throws SQLException {
-        articleTitle  = title;
-        articleContent = content;
         contentSpace.setText(content);
         TitleSpace.setText(title);
         article = DataBaseHandler.getArticleDetails(title);
-        articleId = article.getArticleId();
+        categoryLabel.setText("Category : "+ article.getCategory());
+
     }
 
     public void BackToHomePage(ActionEvent event) throws IOException {

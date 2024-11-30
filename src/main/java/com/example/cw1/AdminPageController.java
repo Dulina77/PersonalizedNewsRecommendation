@@ -54,6 +54,10 @@ public class AdminPageController extends HomeController{
         String title = newArticleTitle.getText();
         String content = newArticleContent.getText();
 
+        if (title == null || title.isEmpty() || content == null || content.isEmpty()){
+            SuccessMessage.setText("Please fill the both title and content fields to insert.");
+            return;
+        }
         admin.AddArticle(title,content);
         SuccessMessage.setText("Article Added Successfully");
     }
@@ -84,12 +88,8 @@ public class AdminPageController extends HomeController{
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-
             }
         }
     }
-
-
-
 
 }

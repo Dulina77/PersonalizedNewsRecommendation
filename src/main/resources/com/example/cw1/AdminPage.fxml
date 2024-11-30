@@ -10,14 +10,14 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.AdminPageController">
    <children>
       <ListView fx:id="MainNewsList" layoutX="25.0" layoutY="65.0" prefHeight="270.0" prefWidth="383.0" />
-      <Label fx:id="welcomeMessage" layoutX="42.0" layoutY="31.0" text="Label" />
-      <Button fx:id="addArticleButton" layoutX="471.0" layoutY="322.0" mnemonicParsing="false" onAction="#AddArticle" text="Add Article" />
+      <Label fx:id="welcomeMessage" layoutX="42.0" layoutY="31.0" text="Please select an Article to Remove from the system" />
+      <Button fx:id="addArticleButton" layoutX="470.0" layoutY="354.0" mnemonicParsing="false" onAction="#AddArticle" text="Add Article" />
       <Button fx:id="BackButton" layoutX="49.0" layoutY="354.0" mnemonicParsing="false" onAction="#logout" text="Log Out" />
-      <TextField fx:id="newArticleTitle" layoutX="437.0" layoutY="52.0" />
-      <TextArea fx:id="newArticleContent" layoutX="437.0" layoutY="113.0" prefHeight="200.0" prefWidth="149.0" />
-      <Label layoutX="437.0" layoutY="96.0" text="Article Content" />
-      <Label layoutX="437.0" layoutY="31.0" text="Article Title" />
-      <Label layoutX="428.0" layoutY="5.0" text="Add a new Article to the system" />
+      <TextField fx:id="newArticleTitle" layoutX="438.0" layoutY="84.0" />
+      <TextArea fx:id="newArticleContent" layoutX="437.0" layoutY="135.0" prefHeight="200.0" prefWidth="149.0" />
+      <Label layoutX="430.0" layoutY="110.0" text="Article Content" />
+      <Label layoutX="430.0" layoutY="56.0" text="Article Title" />
+      <Label layoutX="423.0" layoutY="31.0" text="Add a new Article to the system" />
       <Label fx:id="SuccessMessage" layoutX="438.0" layoutY="358.0" prefHeight="17.0" prefWidth="139.0" />
    </children>
 </AnchorPane>

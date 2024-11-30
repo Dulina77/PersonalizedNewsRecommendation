@@ -20,37 +20,8 @@ public class DataBaseHandler {
         }
     }
 
-    public static void insertAdmin(Admin admin) {
-        String query = "INSERT INTO admin (user_name,first_name, last_name, email,password) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DataBase.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, admin.getUserName());
-            stmt.setString(2, admin.getFirstName());
-            stmt.setString(3,admin.getLastName());
-            stmt.setString(4, admin.getEmail());
-            stmt.setString(5,admin.getPassword());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public static boolean userNameCheckAdmin(String username){
-        String query = "SELECT * FROM admin WHERE user_name = ?";
-        boolean result = false;
 
-        try(Connection connection = DataBase.getConnection()) {
-            PreparedStatement stmt = connection.prepareStatement((query));
-            stmt.setString(1,username);
-            ResultSet resultSet = stmt.executeQuery();
-            result = resultSet.next();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return result;
-
-    }
 
     public static boolean userNameCheck(String username){
         String query = "SELECT * FROM user_final WHERE user_name = ?";
@@ -110,47 +81,9 @@ public class DataBaseHandler {
     }
 
 
-    public static String passwordCheckerAdmin(String username){
-        String query = "SELECT password from admin WHERE user_name = ?";
-        String result = null;
-        try(Connection connection = DataBase.getConnection()) {
-            PreparedStatement stmt = connection.prepareStatement((query));
-            stmt.setString(1,username);
-            ResultSet resultSet = stmt.executeQuery();
-
-            if(resultSet.next()){
-                result = resultSet.getString("password");
-            }
 
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return result;
-    }
 
-
-    public static List<String> getAdminAttributes(String username) throws SQLException {
-
-        List<String> result = new ArrayList<>();
-
-        String query = "Select first_name,last_name,email FROM admin WHERE user_name = ?";
-        try(Connection connection = DataBase.getConnection()) {
-            PreparedStatement stmt = connection.prepareStatement((query));
-            stmt.setString(1, username);
-
-            ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) {
-
-                result.add(resultSet.getString("first_name"));
-                result.add(resultSet.getString("last_name"));
-                result.add(resultSet.getString("email"));
-            }
-        }
-
-        return result;
-
-    }
 
 
     public static List<Article> getRecommendation(String userName){
@@ -372,19 +305,7 @@ public class DataBaseHandler {
         }
     }
 
-    public static void articleContentUpdater(String title,String Newcontent){
-        String query = "UPDATE article SET content = ? WHERE Title = ?";
-        try(Connection connection = DataBase.getConnection()) {
-            PreparedStatement stmt = connection.prepareStatement((query));
-            stmt.setString(1,Newcontent);
-            stmt.setString(2,title);
-            stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
 
 
