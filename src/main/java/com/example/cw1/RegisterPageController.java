@@ -29,8 +29,6 @@ public class RegisterPageController {
     private TextField lastNameField;
     @FXML
     private Label systemResponse;
-    @FXML
-    private Button AdminRegisterButton;
 
     private Stage stage;
     private Scene scene;
@@ -106,8 +104,7 @@ public class RegisterPageController {
 
             User user = new User(UserName, User_password, eMail, FirstName, LastName);
             DataBaseHandler.insertUser(user);
-            Platform.runLater(() -> systemResponse.setText("User Registration Successful"));
-
+            Platform.runLater(() -> systemResponse.setText("User Registration Successful. Please go back to logIn page and log in to the system using your credentials"));
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -116,60 +113,6 @@ public class RegisterPageController {
     }
 
 
-
-
-
-
-    public void registerAsAdmin(ActionEvent event) throws IOException {
-        UserName = RegistrationUserName.getText();
-        User_password = RegistrationPassword.getText();
-        eMail = RegistrationEmail.getText();
-        FirstName = firstNameField.getText();
-        LastName = lastNameField.getText();
-
-        if(UserName == null || UserName.isEmpty() || User_password == null || User_password.isEmpty() || eMail == null || eMail.isEmpty() || FirstName == null || FirstName.isEmpty() || LastName == null || LastName.isEmpty() ) {
-            Platform.runLater(() -> systemResponse.setText("Fill all fields to continue"));
-            return;
-        }
-
-        Thread adminRegisterThread = new Thread(() -> {
-            try {
-                validateAdmin(UserName, User_password, eMail, FirstName, LastName, event);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Platform.runLater(() -> systemResponse.setText("An error occurred. Please try again."));
-            }
-        });
-
-        adminRegisterThread.start();
-    }
-
-    public void validateAdmin(String UserName, String User_password, String eMail, String FirstName, String LastName, ActionEvent actionEvent) throws IOException {
-        try {
-            boolean isExistingUser = DataBaseHandler.userNameCheckAdmin(UserName);
-            if(isExistingUser) {
-                Platform.runLater(() -> systemResponse.setText("The Admin username is already taken"));
-                return;
-            }
-            if(!eMailChecker(eMail)){
-                Platform.runLater(() -> systemResponse.setText("Invalid Email Address"));
-                return;
-            }
-            if (!validatePassword(User_password)) {
-                Platform.runLater(() -> systemResponse.setText("Password must be at least 5 characters long"));
-                return;
-            }
-
-            Admin admin = new Admin(UserName,User_password,eMail,FirstName,LastName);
-            DataBaseHandler.insertAdmin(admin);
-            Platform.runLater(() -> systemResponse.setText("Admin Registration Successful"));
-
-
-        }catch (Exception e) {
-            e.printStackTrace();
-            Platform.runLater(() -> systemResponse.setText("An error occurred during admin registration. Please try again."));
-        }
-    }
 
 
 

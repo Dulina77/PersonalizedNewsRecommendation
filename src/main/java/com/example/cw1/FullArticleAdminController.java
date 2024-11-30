@@ -20,8 +20,6 @@ public class FullArticleAdminController {
     @FXML
     private Button DeleteArticle;
     @FXML
-    private Button UpdateArticle;
-    @FXML
     private Button BackButton;
     @FXML
     private TextArea contentSpace;
@@ -46,7 +44,7 @@ public class FullArticleAdminController {
     }
 
     public void DeleteArticle(ActionEvent event) {
-        ButtonType response = alertMessage(articleTitle, "delete");
+        ButtonType response = alertMessage(articleTitle);
 
         if (response == ButtonType.OK) {
             try {
@@ -60,22 +58,7 @@ public class FullArticleAdminController {
         }
     }
 
-    public void UpdateArticle(ActionEvent event){
-        ButtonType response = alertMessage(articleTitle, "update");
-        String updatedContent = contentSpace.getText();
 
-        if (response == ButtonType.OK) {
-            try {
-                admin.UpdateArticle(articleTitle, updatedContent);
-                SuccessMessage.setText("Article Updated Successfully");
-                article.setContent(updatedContent);
-
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-    }
 
     public void BackToAdminPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminPage.fxml"));
@@ -89,17 +72,11 @@ public class FullArticleAdminController {
         stage.show();
     }
 
-    public ButtonType alertMessage(String articleTitle, String type){
+    public ButtonType alertMessage(String articleTitle){
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
 
-        if(type.equals("update")){
-            confirmationAlert.setTitle("Update Confirmation");
-            confirmationAlert.setHeaderText("Are you sure you want to update this article?");
-        }
-        if (type.equals("delete")){
-            confirmationAlert.setTitle("Delete Confirmation");
-            confirmationAlert.setHeaderText("Are you sure you want to delete this article?");
-        }
+        confirmationAlert.setTitle("Delete Confirmation");
+        confirmationAlert.setHeaderText("Are you sure you want to delete this article?");
         confirmationAlert.setContentText(articleTitle);
 
         return confirmationAlert.showAndWait().get();

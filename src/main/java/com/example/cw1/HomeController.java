@@ -25,11 +25,9 @@ public class HomeController implements Initializable {
     public ListView RecommendedNewsList;
     @FXML
     private Label welcomeMessage;
-
-
     private User user;
-
-    public ListView MainNewsList;
+    @FXML
+    ListView MainNewsList;
 
     ArrayList<String> newsTitles = DataBaseHandler.articleTitleFetcher();
     List<String> recommendedTitles ;
@@ -65,18 +63,15 @@ public class HomeController implements Initializable {
     public void articleSelectionMain(javafx.scene.input.MouseEvent event){
         if(event.getClickCount() == 2) {
             String clickedTitle = (String) MainNewsList.getSelectionModel().getSelectedItem();
-
             if (clickedTitle != null) {
                 try {
                     String articleContent = articleHandler.articleSelectionMain(clickedTitle);
                     LoadFullArticle(clickedTitle,articleContent,event);
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-
             }
         }
     }
@@ -84,13 +79,10 @@ public class HomeController implements Initializable {
     public void articleSelectionRecommendation(javafx.scene.input.MouseEvent event){
         if(event.getClickCount() == 2) {
             String clickedTitle = (String) RecommendedNewsList.getSelectionModel().getSelectedItem();
-
             if (clickedTitle != null) {
                 try {
                     String articleContent = articleHandler.articleSelectionRecommendation(clickedTitle);
-
                     LoadFullArticle(clickedTitle,articleContent,event);
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (SQLException e) {
@@ -106,7 +98,6 @@ public class HomeController implements Initializable {
         if (user != null) {
             welcomeMessage.setText("Welcome" + " " + user.getFirstName());
             System.out.println(user.getUserName());
-
             Thread recommendationThread = new Thread(() -> {
                 List<String> recommendations = articleHandler.recommendationTitles(user);
                 Platform.runLater(() -> {
@@ -115,7 +106,6 @@ public class HomeController implements Initializable {
                     System.out.println(recommendations);
                 });
             });
-
             recommendationThread.start();
         }
     }
@@ -123,11 +113,9 @@ public class HomeController implements Initializable {
     public void switchToHistoryPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/History.fxml"));
         Scene scene = new Scene(loader.load());
-
         HistoryController controller = loader.getController();
         controller.setUser(user);
         controller.loadHistoryTable();
-
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
     }
@@ -135,10 +123,8 @@ public class HomeController implements Initializable {
     public void switchToManageAccountPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/ManageAccount.fxml"));
         Scene scene = new Scene(loader.load());
-
         ManageAccountConroller controller = loader.getController();
         controller.setUser(user);
-
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
     }
