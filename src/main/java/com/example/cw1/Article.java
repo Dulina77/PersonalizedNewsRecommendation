@@ -21,9 +21,6 @@ public class Article {
 
 
 
-
-
-
     public String getContent() {
         return Content;
     }
@@ -40,9 +37,6 @@ public class Article {
         return category;
     }
 
-    public void setArticleId(int articleId) {
-        ArticleId = articleId;
-    }
 
     public void setCategory(String category) {
         this.category = category;

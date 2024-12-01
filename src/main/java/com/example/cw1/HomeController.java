@@ -76,6 +76,7 @@ public class HomeController implements Initializable {
         }
     }
 
+
     public void articleSelectionRecommendation(javafx.scene.input.MouseEvent event){
         if(event.getClickCount() == 2) {
             String clickedTitle = (String) RecommendedNewsList.getSelectionModel().getSelectedItem();

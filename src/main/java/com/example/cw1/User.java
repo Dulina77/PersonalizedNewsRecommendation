@@ -38,10 +38,6 @@ public class User {
         return password;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -74,7 +70,7 @@ public class User {
 
     public void recordDislike(Article article) throws SQLException {
         DataBaseHandler.recordAction(userName,article.getArticleId(), "Disliked");
-        DataBaseHandler.recordScores(userName,article.getArticleId(), article.getCategory(), +4);
+        DataBaseHandler.recordScores(userName,article.getArticleId(), article.getCategory(), -4);
     }
 
     public void recordRead(Article article) throws SQLException {

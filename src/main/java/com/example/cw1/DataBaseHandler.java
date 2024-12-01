@@ -83,9 +83,6 @@ public class DataBaseHandler {
 
 
 
-
-
-
     public static List<Article> getRecommendation(String userName){
         List<Article> recommendedArticles = new ArrayList<>();
 
