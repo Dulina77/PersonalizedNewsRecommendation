@@ -2,9 +2,9 @@ package com.example.cw1;
 import java.sql.*;
 
 public class DataBase {
-    public static final String url = "jdbc:mysql://localhost:3306/news";
-    public static final String user = "root";
-    public static final String password = "Dulina@123";
+    private static final String url = "jdbc:mysql://localhost:3306/news";
+    private static final String user = "root";
+    private static final String password = "Dulina@123";
     private static Connection connection;
 
     public static Connection getConnection() throws SQLException {

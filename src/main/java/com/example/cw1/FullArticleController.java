@@ -61,7 +61,6 @@ public class FullArticleController {
         stage.show();
     }
 
-
     public void setUser(User user){
         this.user = user;
     }
