@@ -9,7 +9,7 @@ public class Admin extends User{
         super(username, password);
     }
 
-    public void AddArticle(String newArticleTitle, String newArticleContent ) throws IOException, SQLException {
+    public void AddArticle(String newArticleTitle, String newArticleContent ) throws IOException, SQLException, InterruptedException {
         KeywordExtraction keywordExtraction = new KeywordExtraction();
         String category = keywordExtraction.categorizeArticle(newArticleContent);
         DataBaseHandler.insertArticle(newArticleTitle,newArticleContent,category);

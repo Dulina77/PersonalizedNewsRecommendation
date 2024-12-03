@@ -87,25 +87,45 @@ public class DataBaseHandler {
         List<Article> recommendedArticles = new ArrayList<>();
 
 
-        String query = "SELECT a.articleId, a.Title, a.category " +
-                "FROM article a " +
-                "WHERE a.category IN ( " +
-                "    SELECT DISTINCT category " +
-                "    FROM ( " +
-                "        SELECT category " +
-                "        FROM user_scores " +
-                "        WHERE user_name = ? " +
-                "        ORDER BY score DESC " +
-                "        LIMIT 5 " +
-                "    ) AS top_categories " +
-                ") " +
-                "AND a.articleId NOT IN ( " +
-                "    SELECT articleId " +
-                "    FROM user_scores " +
-                "    WHERE user_name = ? " +
-                ") " +
-                "ORDER BY a.articleId DESC " +
-                "LIMIT 5";
+//        String query = "SELECT a.articleId, a.Title, a.category " +
+//                "FROM article a " +
+//                "WHERE a.category IN ( " +
+//                "    SELECT DISTINCT category " +
+//                "    FROM ( " +
+//                "        SELECT category " +
+//                "        FROM user_scores " +
+//                "        WHERE user_name = ? " +
+//                "        ORDER BY score DESC " +
+//                "        LIMIT 3 " +
+//                "    ) AS top_categories " +
+//                ") " +
+//                "AND a.articleId NOT IN ( " +
+//                "    SELECT articleId " +
+//                "    FROM user_scores " +
+//                "    WHERE user_name = ? " +
+//                ") " +
+//                "ORDER BY a.articleId DESC " +
+//                "LIMIT 10";
+
+        String query = """
+        SELECT a.articleId, a.Title, a.category
+        FROM article a
+        JOIN (
+            SELECT category
+            FROM user_scores
+            WHERE user_name = ?
+            GROUP BY category
+            ORDER BY MAX(score) DESC
+            LIMIT 3
+        ) AS top_categories ON a.category = top_categories.category
+        WHERE a.articleId NOT IN (
+            SELECT articleId
+            FROM user_scores
+            WHERE user_name = ?
+        )
+        ORDER BY a.category, a.articleId DESC
+        LIMIT 10;
+    """;
 
 
         try (Connection connection =  DataBase.getConnection()) {
@@ -207,9 +227,8 @@ public class DataBaseHandler {
         ArrayList<String> title = new ArrayList<>();
         String query = "SELECT Title FROM article ";
         try(Connection connection = DataBase.getConnection()) {
-            PreparedStatement stmt = connection.prepareStatement((query));
+            PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet resultSet = stmt.executeQuery();
-
             while (resultSet.next()){
                 title.add(resultSet.getString("Title"));
             }

@@ -50,7 +50,7 @@ public class AdminPageController extends HomeController{
 
 
     @FXML
-    private void AddArticle() throws SQLException, IOException {
+    private void AddArticle() throws SQLException, IOException, InterruptedException {
         String title = newArticleTitle.getText();
         String content = newArticleContent.getText();
 

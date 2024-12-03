@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ArticleInserter {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         CSVconverter csvconverter = new CSVconverter();
         String[][] articles = csvconverter.ArticleCollector();
@@ -16,9 +16,10 @@ public class ArticleInserter {
         for (String[] article : articles) {
             String title = article[0];
             String content = article[1];
+            String description = article[2];
 
             KeywordExtraction keywordExtraction = new KeywordExtraction();
-            String category = keywordExtraction.categorizeArticle(article[1]);
+            String category = keywordExtraction.categorizeArticle(description);
 
             try {
                 DataBaseHandler.insertArticle(title, content, category);

@@ -36,15 +36,11 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Thread fetchArticlesThread = new Thread(() -> {
-            ArrayList<String> fetchedTitles = DataBaseHandler.articleTitleFetcher();
-            Platform.runLater(() -> {
-                newsTitles = fetchedTitles;
-                MainNewsList.getItems().addAll(newsTitles);
-            });
-        });
+        ArrayList<String> fetchedTitles = ArticleHandler.articleTitleFetcher();
+        newsTitles = fetchedTitles;
+        MainNewsList.getItems().addAll(newsTitles);
 
-        fetchArticlesThread.start();
+
 
         MainNewsList.setOnMouseClicked(this::articleSelectionMain);
         RecommendedNewsList.setOnMouseClicked(this::articleSelectionRecommendation);
@@ -99,15 +95,13 @@ public class HomeController implements Initializable {
         if (user != null) {
             welcomeMessage.setText("Welcome" + " " + user.getFirstName());
             System.out.println(user.getUserName());
-            Thread recommendationThread = new Thread(() -> {
-                List<String> recommendations = articleHandler.recommendationTitles(user);
-                Platform.runLater(() -> {
-                    RecommendedNewsList.getItems().clear();
-                    RecommendedNewsList.getItems().addAll(recommendations);
-                    System.out.println(recommendations);
-                });
-            });
-            recommendationThread.start();
+
+            List<String> recommendations = articleHandler.recommendationTitles(user);
+
+            RecommendedNewsList.getItems().clear();
+            RecommendedNewsList.getItems().addAll(recommendations);
+            System.out.println(recommendations);
+
         }
     }
 
@@ -141,7 +135,5 @@ public class HomeController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
     }
-
-
 
 }
