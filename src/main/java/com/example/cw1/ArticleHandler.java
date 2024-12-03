@@ -28,4 +28,8 @@ public class ArticleHandler {
 
         return recommendedTitles;
     }
+
+    public static ArrayList<String> articleTitleFetcher(){
+        return DataBaseHandler.articleTitleFetcher();
+    }
 }

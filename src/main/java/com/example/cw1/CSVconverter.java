@@ -26,14 +26,16 @@ public class CSVconverter {
             readerAgain.readNext(); // Skip the header
 
             // Create a 2D array for columns 1 and 3
-            data = new String[rowCount][2];
+            data = new String[rowCount][3];
             int rowIndex = 0;
 
             String[] row;
             while ((row = readerAgain.readNext()) != null) {
                 if (row.length >= 3) { // Ensure at least 3 columns exist
                     data[rowIndex][0] = row[0]; // Column 1 (e.g., headline)
+
                     data[rowIndex][1] = row[2]; // Column 3 (e.g., content)
+                    data[rowIndex][2] = row[1];
                 }
                 rowIndex++;
             }
@@ -41,9 +43,9 @@ public class CSVconverter {
             readerAgain.close();
 
             // Print the extracted data
-            System.out.println("Extracted data (Column 1 and Column 3):");
+            System.out.println("Extracted data (Column 1 ,2, 3):");
             for (String[] r : data) {
-                System.out.println("Heading: " + r[0] + " | content: " + r[1]);
+                System.out.println("Heading: " + r[0] + " | content: " + r[1]  + " | category: " + r[2]);
             }
 
 
