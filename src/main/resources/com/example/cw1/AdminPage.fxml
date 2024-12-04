@@ -18,6 +18,6 @@
       <Label layoutX="430.0" layoutY="110.0" text="Article Content" />
       <Label layoutX="430.0" layoutY="56.0" text="Article Title" />
       <Label layoutX="423.0" layoutY="31.0" text="Add a new Article to the system" />
-      <Label fx:id="SuccessMessage" layoutX="438.0" layoutY="358.0" prefHeight="17.0" prefWidth="139.0" />
+      <Label fx:id="SuccessMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="121.0" layoutY="358.0" prefHeight="17.0" prefWidth="343.0" />
    </children>
 </AnchorPane>

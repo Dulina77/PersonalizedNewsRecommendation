@@ -44,7 +44,7 @@ public class FullArticleAdminController {
     }
 
     public void DeleteArticle(ActionEvent event) {
-        ButtonType response = alertMessage(articleTitle);
+        ButtonType response = alertMessageDelete(articleTitle);
 
         if (response == ButtonType.OK) {
             try {
@@ -72,7 +72,8 @@ public class FullArticleAdminController {
         stage.show();
     }
 
-    public ButtonType alertMessage(String articleTitle){
+
+    public ButtonType alertMessageDelete(String articleTitle){
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
 
         confirmationAlert.setTitle("Delete Confirmation");

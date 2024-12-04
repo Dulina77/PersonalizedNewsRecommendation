@@ -37,7 +37,8 @@ public class AdminPageController extends HomeController{
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MainNewsList.getItems().addAll(newsTitles);
-        MainNewsList.setOnMouseClicked((this::articleSelection));    }
+        MainNewsList.setOnMouseClicked((this::articleSelection));
+    }
 
 
     public void logout(ActionEvent event) throws IOException {
@@ -58,8 +59,24 @@ public class AdminPageController extends HomeController{
             SuccessMessage.setText("Please fill the both title and content fields to insert.");
             return;
         }
-        admin.AddArticle(title,content);
-        SuccessMessage.setText("Article Added Successfully");
+
+        if(DataBaseHandler.isTitleDuplicate(title)){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Duplicate Title Detected");
+            alert.setHeaderText("An article with this title already exists.");
+            alert.setContentText("Do you want to update the content instead?");
+
+            if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK){
+                admin.AddArticle(title,content);
+                SuccessMessage.setText("Article Updated Successfully");
+            }else{
+                SuccessMessage.setText("No Changes Were Made");
+            }
+        }else {
+            admin.AddArticle(title,content);
+            SuccessMessage.setText("Article Added Successfully");
+        }
+        refreshNewsList();
     }
 
     void setAdmin(Admin admin){
@@ -90,6 +107,16 @@ public class AdminPageController extends HomeController{
                 }
             }
         }
+    }
+
+
+    private void refreshNewsList() {
+        MainNewsList.getItems().clear();
+
+        newsTitles = DataBaseHandler.articleTitleFetcher();
+
+        MainNewsList.getItems().addAll(newsTitles);
+
     }
 
 }

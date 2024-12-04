@@ -15,13 +15,14 @@
             <Label fx:id="categoryLabel" prefHeight="40.0" prefWidth="157.0" text="Label" wrapText="true" />
          </children>
       </HBox>
-      <TextArea fx:id="contentSpace" prefHeight="272.0" prefWidth="600.0" wrapText="true" />
+      <TextArea fx:id="contentSpace" editable="false" prefHeight="272.0" prefWidth="600.0" wrapText="true" />
       <AnchorPane prefHeight="124.0" prefWidth="600.0">
          <children>
             <Button fx:id="BackButton" layoutX="21.0" layoutY="36.0" mnemonicParsing="false" onAction="#BackToHomePage" text="Back To Home Page" />
             <Button fx:id="LikeButton" layoutX="436.0" layoutY="36.0" mnemonicParsing="false" onAction="#onLikeButtonClick" text="Like" />
             <Button fx:id="DislikeButton" layoutX="506.0" layoutY="36.0" mnemonicParsing="false" onAction="#onDislIkeButtonClick" text="Dislike" />
             <Label layoutX="436.0" layoutY="14.0" prefHeight="17.0" prefWidth="70.0" text="Rate Article?" />
+            <Label fx:id="SuccessMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="157.0" layoutY="41.0" prefHeight="17.0" prefWidth="269.0" />
          </children>
       </AnchorPane>
    </children>
