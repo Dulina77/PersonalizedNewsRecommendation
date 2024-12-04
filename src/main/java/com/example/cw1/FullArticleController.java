@@ -21,6 +21,8 @@ import java.sql.*;
 public class FullArticleController {
 
     @FXML
+    private Label SuccessMessage;
+    @FXML
     private Label categoryLabel;
     @FXML
     private Button BackButton;
@@ -67,10 +69,13 @@ public class FullArticleController {
 
     public void onLikeButtonClick(ActionEvent actionEvent) throws SQLException {
         user.recordLike(article);
+        SuccessMessage.setText("Article Liked Successfully");
     }
 
     public void onDislIkeButtonClick(ActionEvent actionEvent) throws SQLException {
         user.recordDislike(article);
+        SuccessMessage.setText("Article Disliked Successfully");
+
     }
 
     public void onOpen(javafx.scene.input.MouseEvent event) throws SQLException {

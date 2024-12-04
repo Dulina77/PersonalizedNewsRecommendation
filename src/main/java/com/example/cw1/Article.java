@@ -19,6 +19,12 @@ public class Article {
         this.category = category;
     }
 
+    public Article( String Title, String category){
+        this.Title = Title;
+        this.category = category;
+    }
+
+
 
 
     public String getContent() {

@@ -58,11 +58,11 @@ public class HistoryController {
         }
     }
 
-    public void BackToHome(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
+    public void BackToSettings(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ManageAccount.fxml"));
         Scene scene = new Scene(loader.load());
 
-        HomeController controller = loader.getController();
+        ManageAccountConroller controller = loader.getController();
         controller.setUser(user);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

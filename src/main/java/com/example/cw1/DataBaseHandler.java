@@ -87,28 +87,10 @@ public class DataBaseHandler {
         List<Article> recommendedArticles = new ArrayList<>();
 
 
-//        String query = "SELECT a.articleId, a.Title, a.category " +
-//                "FROM article a " +
-//                "WHERE a.category IN ( " +
-//                "    SELECT DISTINCT category " +
-//                "    FROM ( " +
-//                "        SELECT category " +
-//                "        FROM user_scores " +
-//                "        WHERE user_name = ? " +
-//                "        ORDER BY score DESC " +
-//                "        LIMIT 3 " +
-//                "    ) AS top_categories " +
-//                ") " +
-//                "AND a.articleId NOT IN ( " +
-//                "    SELECT articleId " +
-//                "    FROM user_scores " +
-//                "    WHERE user_name = ? " +
-//                ") " +
-//                "ORDER BY a.articleId DESC " +
-//                "LIMIT 10";
+
 
         String query = """
-        SELECT a.articleId, a.Title, a.category
+        SELECT a.Title, a.category
         FROM article a
         JOIN (
             SELECT category
@@ -118,28 +100,22 @@ public class DataBaseHandler {
             ORDER BY MAX(score) DESC
             LIMIT 3
         ) AS top_categories ON a.category = top_categories.category
-        WHERE a.articleId NOT IN (
-            SELECT articleId
-            FROM user_scores
-            WHERE user_name = ?
-        )
-        ORDER BY a.category, a.articleId DESC
-        LIMIT 10;
+        ORDER BY RAND()
+        LIMIT 10; 
     """;
 
 
         try (Connection connection =  DataBase.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setString(1, userName);
-                statement.setString(2, userName);
+//                statement.setString(2, userName);
                 ResultSet rs = statement.executeQuery();
                 System.out.println(rs);
                 while (rs.next()) {
-                    int articleId = rs.getInt("articleId");
                     String title = rs.getString("Title");
                     String category = rs.getString("category");
 
-                    recommendedArticles.add(new Article(articleId, title, category));
+                    recommendedArticles.add(new Article( title, category));
                 }
                 System.out.println(recommendedArticles);
 
@@ -208,16 +184,15 @@ public class DataBaseHandler {
 
     }
 
-    public static void recordScores(String username,int articleId,String category , int score) throws SQLException {
-        String query = "INSERT into user_scores(user_name, articleid, category, score) VALUES (?,?,?,?) "+ "ON DUPLICATE KEY UPDATE score = score + ?";
+    public static void recordScores(String username,String category , int score) throws SQLException {
+        String query = "INSERT into user_scores(user_name, category, score) VALUES (?,?,?) "+ "ON DUPLICATE KEY UPDATE score = score + ?";
 
         try (Connection connection = DataBase.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, username);
-            stmt.setInt(2, articleId);
-            stmt.setString(3, category);
+            stmt.setString(2, category);
+            stmt.setInt(3, score);
             stmt.setInt(4, score);
-            stmt.setInt(5, score);
             stmt.executeUpdate();
             System.out.println(score);
         }
@@ -321,6 +296,20 @@ public class DataBaseHandler {
         }
     }
 
+
+    public static boolean isTitleDuplicate(String title) throws SQLException {
+        String query = "SELECT COUNT(*) FROM article WHERE title = ?";
+        try (Connection connection = DataBase.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, title);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0; // Returns true if the title exists
+                }
+            }
+        }
+        return false;
+    }
 
 
 

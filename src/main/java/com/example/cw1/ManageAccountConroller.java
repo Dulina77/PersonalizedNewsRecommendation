@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class ManageAccountConroller {
     @FXML
@@ -79,24 +80,35 @@ public class ManageAccountConroller {
 
     public void UpdateEmail() throws SQLException {
         String UpdatedEmail = Email.getText();
-        if(!Objects.equals(UpdatedEmail, user.getEmail())){
-            DataBaseHandler.updateEmail(UpdatedEmail,user);
-            Message.setText("Successfully Updated Email");
-            user.setEmail(UpdatedEmail);
-        }else {
-            Message.setText("No changes in the Email");
+
+        if (eMailChecker(UpdatedEmail)){
+            Message.setText("Invalid Email");
+        }else{
+            if(!Objects.equals(UpdatedEmail, user.getEmail())){
+                DataBaseHandler.updateEmail(UpdatedEmail,user);
+                Message.setText("Successfully Updated Email");
+                user.setEmail(UpdatedEmail);
+            }else {
+                Message.setText("No changes in the Email");
+            }
         }
+
     }
 
     public void UpdatePassword() throws SQLException {
         String UpdatedPassword = Password.getText();
-        if(!Objects.equals(UpdatedPassword, user.getPassword())){
-            DataBaseHandler.updatePassword(UpdatedPassword,user);
-            Message.setText("Successfully Updated Password");
-            user.setPassword(UpdatedPassword);
+        if (!validPassword(UpdatedPassword)){
+            Message.setText("Invalid Password. Password has to be at least 5 characters long");
         }else {
-            Message.setText("No changes in the Password");
+            if(!Objects.equals(UpdatedPassword, user.getPassword())){
+                DataBaseHandler.updatePassword(UpdatedPassword,user);
+                Message.setText("Successfully Updated Password");
+                user.setPassword(UpdatedPassword);
+            }else {
+                Message.setText("No changes in the Password");
+            }
         }
+
     }
 
 
@@ -110,4 +122,28 @@ public class ManageAccountConroller {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
     }
+
+    public void switchToHistoryPage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/History.fxml"));
+        Scene scene = new Scene(loader.load());
+        HistoryController controller = loader.getController();
+        controller.setUser(user);
+        controller.loadHistoryTable();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+    }
+
+    public boolean validPassword(String password){
+        if(password.length() < 5){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean eMailChecker(String email) {
+        String emailRegex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
+    }
+
 }

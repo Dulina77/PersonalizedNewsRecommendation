@@ -65,17 +65,17 @@ public class User {
 
     public void recordLike(Article article) throws SQLException {
         DataBaseHandler.recordAction(userName,article.getArticleId(), "Liked");
-        DataBaseHandler.recordScores(userName,article.getArticleId(), article.getCategory(), +4);
+        DataBaseHandler.recordScores(userName, article.getCategory(), +4);
     }
 
     public void recordDislike(Article article) throws SQLException {
         DataBaseHandler.recordAction(userName,article.getArticleId(), "Disliked");
-        DataBaseHandler.recordScores(userName,article.getArticleId(), article.getCategory(), -4);
+        DataBaseHandler.recordScores(userName, article.getCategory(), -4);
     }
 
     public void recordRead(Article article) throws SQLException {
         DataBaseHandler.recordAction(userName,article.getArticleId(), "viewed");
-        DataBaseHandler.recordScores(userName, article.getArticleId(), article.getCategory(),+3);
+        DataBaseHandler.recordScores(userName, article.getCategory(),+3);
     }
 
 

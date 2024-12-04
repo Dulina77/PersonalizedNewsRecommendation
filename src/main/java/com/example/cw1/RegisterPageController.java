@@ -113,9 +113,6 @@ public class RegisterPageController {
     }
 
 
-
-
-
     public boolean eMailChecker(String email) {
         String emailRegex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
         Pattern pattern = Pattern.compile(emailRegex);

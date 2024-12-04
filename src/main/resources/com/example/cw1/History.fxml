@@ -9,6 +9,6 @@
    <children>
       <ListView fx:id="HistoryTable" layoutX="47.0" layoutY="89.0" prefHeight="254.0" prefWidth="504.0" />
       <Label layoutX="258.0" layoutY="45.0" text="History Table" />
-      <Button fx:id="BackButton" layoutX="478.0" layoutY="360.0" mnemonicParsing="false" onAction="#BackToHome" text="Back To Home" />
+      <Button fx:id="BackButton" layoutX="478.0" layoutY="360.0" mnemonicParsing="false" onAction="#BackToSettings" text="Back To Home" />
    </children>
 </AnchorPane>
