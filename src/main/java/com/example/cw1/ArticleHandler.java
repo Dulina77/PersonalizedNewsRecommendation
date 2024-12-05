@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleHandler {
-    private Article article;
 
     static String articleSelectionMain(String clickedTitle){
         String articleContent = DataBaseHandler.articleContentFetcher(clickedTitle);

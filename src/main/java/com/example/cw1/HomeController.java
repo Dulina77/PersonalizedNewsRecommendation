@@ -93,27 +93,22 @@ public class HomeController implements Initializable {
     public void setUser(User user) {
         this.user = user;
         if (user != null) {
-            welcomeMessage.setText("Welcome" + " " + user.getFirstName());
-            System.out.println(user.getUserName());
+            Thread recommendationThread = new Thread(()-> {
 
-            List<String> recommendations = articleHandler.recommendationTitles(user);
 
-            RecommendedNewsList.getItems().clear();
-            RecommendedNewsList.getItems().addAll(recommendations);
-            System.out.println(recommendations);
+                Platform.runLater(() -> welcomeMessage.setText("Welcome back " + user.getFirstName()));
 
+                List<String> recommendations = articleHandler.recommendationTitles(user);
+
+                Platform.runLater(() -> RecommendedNewsList.getItems().clear());
+                Platform.runLater(() -> RecommendedNewsList.getItems().addAll(recommendations));
+
+            });
+
+            recommendationThread.start();
         }
     }
 
-    public void switchToHistoryPage(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/History.fxml"));
-        Scene scene = new Scene(loader.load());
-        HistoryController controller = loader.getController();
-        controller.setUser(user);
-        controller.loadHistoryTable();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-    }
 
     public void switchToManageAccountPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cw1/ManageAccount.fxml"));

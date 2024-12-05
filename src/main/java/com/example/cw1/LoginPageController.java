@@ -131,7 +131,7 @@ public class LoginPageController {
         LogIn_password = logInPassword.getText();
 
         if(LogIn_username == null || LogIn_username.isEmpty() || LogIn_password == null || LogIn_password.isEmpty()) {
-            Platform.runLater(() -> failureMessage.setText("Fill all fields to continue"));
+            failureMessage.setText("Fill all fields to continue");
             return;
         }
 
@@ -145,7 +145,7 @@ public class LoginPageController {
             }
         }catch (Exception e) {
             e.printStackTrace();
-            Platform.runLater(() -> failureMessage.setText("An error occurred during admin login. Please try again."));
+            failureMessage.setText("An error occurred during admin login. Please try again.");
         }
 
 

@@ -81,7 +81,7 @@ public class ManageAccountConroller {
     public void UpdateEmail() throws SQLException {
         String UpdatedEmail = Email.getText();
 
-        if (eMailChecker(UpdatedEmail)){
+        if (!eMailChecker(UpdatedEmail)){
             Message.setText("Invalid Email");
         }else{
             if(!Objects.equals(UpdatedEmail, user.getEmail())){

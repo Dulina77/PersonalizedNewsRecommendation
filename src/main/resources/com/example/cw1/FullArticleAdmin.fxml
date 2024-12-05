@@ -9,11 +9,11 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.FullArticleAdminController">
     <children>
         <Label fx:id="TitleSpace" prefHeight="63.0" prefWidth="599.0" />
-        <TextArea fx:id="contentSpace" prefHeight="298.0" wrapText="true" />
+        <TextArea fx:id="contentSpace" editable="false" prefHeight="298.0" style="-fx-border-color: black;" wrapText="true" />
         <AnchorPane prefHeight="124.0" prefWidth="600.0">
             <children>
-                <Button fx:id="BackButton" layoutX="21.0" layoutY="36.0" mnemonicParsing="false" onAction="#BackToAdminPage" text="Back To Admin Page" />
-                <Button fx:id="DeleteArticle" layoutX="506.0" layoutY="36.0" mnemonicParsing="false" onAction="#DeleteArticle" text="Delete Article" />
+                <Button fx:id="BackButton" layoutX="35.0" layoutY="45.0" mnemonicParsing="false" onAction="#BackToAdminPage" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 11; -fx-text-fill: white;" text="Back To Admin Page" />
+                <Button fx:id="DeleteArticle" layoutX="480.0" layoutY="45.0" mnemonicParsing="false" onAction="#DeleteArticle" prefHeight="35.0" prefWidth="87.0" style="-fx-background-color: black; -fx-background-radius: 11; -fx-text-fill: white;" text="Delete Article" />
             <Label fx:id="SuccessMessage" layoutX="22.0" layoutY="14.0" prefHeight="17.0" prefWidth="571.0" />
             </children>
         </AnchorPane>
