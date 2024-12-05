@@ -21,7 +21,8 @@ import java.util.regex.Pattern;
 
 
 public class RegisterPageController {
-    public Label Message2;
+    @FXML
+    private Label Message2;
     @FXML
     private TextField firstNameField;
 

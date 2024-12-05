@@ -13,7 +13,7 @@ public class MainApplication extends Application {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
             Scene scene = new Scene(root);
-            stage.setTitle("Your News Recommendation Application");
+            stage.setTitle("News Recommendation System");
             stage.setScene(scene);
             stage.show();
             System.out.println(Thread.currentThread().getName());
