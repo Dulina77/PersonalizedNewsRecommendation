@@ -12,7 +12,7 @@ public class ArticleRecommendation {
     }
 
     public List<Article> getRecommendation(String userName) {
-        List<Article> recommendedArticles = new ArrayList<>();
+        List<Article> recommendedArticles;
         recommendedArticles = dbHandler.getRecommendation(userName);
         System.out.println("Recommended Articles: " + recommendedArticles);
         return recommendedArticles;

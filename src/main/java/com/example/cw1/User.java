@@ -2,7 +2,6 @@ package com.example.cw1;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class User {
     private String FirstName;
