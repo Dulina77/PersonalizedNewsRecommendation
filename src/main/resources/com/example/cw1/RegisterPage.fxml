@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="356.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.RegisterPageController">
    <children>
@@ -24,21 +25,39 @@
           <RowConstraints maxHeight="220.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="   User Name" GridPane.rowIndex="2" />
-            <TextField fx:id="RegistrationUserName" prefHeight="25.0" prefWidth="426.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="   Email" GridPane.rowIndex="3" />
-            <TextField fx:id="RegistrationEmail" prefHeight="25.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <PasswordField fx:id="RegistrationPassword" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="   Enter Password" GridPane.rowIndex="4" />
-            <Label text="   First Name" />
-            <Label text="   Last Name" GridPane.rowIndex="1" />
-            <TextField fx:id="firstNameField" GridPane.columnIndex="1" />
-            <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="   User Name" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="RegistrationUserName" prefHeight="25.0" prefWidth="426.0" style="-fx-background-radius: 11; -fx-border-radius: 11; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="   Email" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="RegistrationEmail" prefHeight="25.0" prefWidth="245.0" style="-fx-background-radius: 11; -fx-border-color: black; -fx-border-radius: 11;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <PasswordField fx:id="RegistrationPassword" style="-fx-background-radius: 11; -fx-border-color: black; -fx-border-radius: 11;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="   Enter Password" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label text="   First Name">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label text="   Last Name" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="firstNameField" prefHeight="25.0" prefWidth="313.0" style="-fx-background-radius: 11; -fx-border-color: black; -fx-border-radius: 11;" GridPane.columnIndex="1" />
+            <TextField fx:id="lastNameField" style="-fx-background-radius: 11; -fx-border-color: black; -fx-border-radius: 11;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Label layoutX="273.0" layoutY="25.0" text="Registration" />
-      <Button fx:id="RegisterButton" layoutX="442.0" layoutY="299.0" mnemonicParsing="false" onAction="#register" prefHeight="33.0" prefWidth="91.0" text="Register" />
-      <Button fx:id="BackButton" layoutX="67.0" layoutY="303.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Back" />
-      <Label fx:id="systemResponse" layoutX="183.0" layoutY="271.0" prefHeight="17.0" prefWidth="243.0" />
+      <Label layoutX="236.0" layoutY="23.0" style="-fx-font-family: Helvetica;" text="Registration">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+      <Button fx:id="RegisterButton" layoutX="442.0" layoutY="299.0" mnemonicParsing="false" onAction="#register" prefHeight="33.0" prefWidth="91.0" style="-fx-background-color: black; -fx-background-radius: 9; -fx-text-fill: white;" text="Register" />
+      <Button fx:id="BackButton" layoutX="67.0" layoutY="295.0" mnemonicParsing="false" onAction="#switchToLoginPage" prefHeight="33.0" prefWidth="57.0" style="-fx-background-color: black; -fx-background-radius: 9; -fx-text-fill: white;" text="Back" />
+      <Label fx:id="systemResponse" alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="268.0" prefHeight="17.0" prefWidth="615.0" />
    </children>
 </AnchorPane>

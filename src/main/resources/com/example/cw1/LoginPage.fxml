@@ -5,18 +5,28 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.LoginPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.LoginPageController">
    <children>
-      <Button fx:id="loginButton" layoutX="157.0" layoutY="338.0" mnemonicParsing="false" onAction="#login" text="Login as User" />
-      <Button fx:id="registerButton" layoutX="300.0" layoutY="272.0" mnemonicParsing="false" onAction="#switchToRegisterPage" text="Register" />
-      <PasswordField fx:id="logInPassword" layoutX="240.0" layoutY="211.0" prefHeight="25.0" prefWidth="209.0" />
-      <Label layoutX="132.0" layoutY="215.0" text="Password" />
-      <TextField fx:id="logInUserName" layoutX="240.0" layoutY="158.0" prefHeight="25.0" prefWidth="209.0" />
-      <Label layoutX="128.0" layoutY="162.0" text="User Name" />
-      <Label layoutX="256.0" layoutY="72.0" prefHeight="35.0" prefWidth="59.0" text="Welcome" />
-      <Label layoutX="200.0" layoutY="276.0" text="Not a User?" />
-      <Label fx:id="failureMessage" layoutX="94.0" layoutY="306.0" prefHeight="25.0" prefWidth="382.0" />
-      <Button fx:id="adminButton" layoutX="360.0" layoutY="338.0" mnemonicParsing="false" onAction="#loginAsAdmin" text="Login as Admin" />
+      <Button fx:id="loginButton" layoutX="162.0" layoutY="265.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="121.0" style="-fx-background-radius: 11; -fx-background-color: black; -fx-text-fill: white;" text="Login as User" />
+      <Button fx:id="registerButton" layoutX="494.0" layoutY="354.0" mnemonicParsing="false" onAction="#switchToRegisterPage" prefHeight="35.0" prefWidth="83.0" style="-fx-background-radius: 11; -fx-background-color: black; -fx-text-fill: white;" text="Register" />
+      <PasswordField fx:id="logInPassword" layoutX="240.0" layoutY="197.0" prefHeight="25.0" prefWidth="209.0" style="-fx-background-radius: 9; -fx-border-radius: 9; -fx-border-color: black;" />
+      <Label layoutX="131.0" layoutY="200.0" style="-fx-font-family: Proxima Nova;" text="Password">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <TextField fx:id="logInUserName" layoutX="240.0" layoutY="144.0" prefHeight="25.0" prefWidth="209.0" style="-fx-border-radius: 9; -fx-background-radius: 9; -fx-border-color: black;" />
+      <Label layoutX="128.0" layoutY="148.0" style="-fx-font-family: Helvetica;" text="User Name">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="3.0" layoutY="14.0" prefHeight="98.0" prefWidth="594.0" style="-fx-font-family: Helvetica;" text=" Welcome ! Please LogIn Using Your Account" wrapText="true">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+      <Label layoutX="418.0" layoutY="363.0" text="Not a User?" />
+      <Label fx:id="failureMessage" alignment="CENTER" layoutX="-1.0" layoutY="319.0" prefHeight="25.0" prefWidth="600.0" />
+      <Button fx:id="adminButton" layoutX="345.0" layoutY="265.0" mnemonicParsing="false" onAction="#loginAsAdmin" prefHeight="35.0" prefWidth="127.0" style="-fx-background-radius: 11; -fx-border-radius: 9; -fx-text-fill: white; -fx-background-color: black;" text="Login as Admin" />
    </children>
 </AnchorPane>

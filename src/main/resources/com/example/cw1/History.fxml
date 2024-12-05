@@ -4,11 +4,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.HistoryController">
    <children>
-      <ListView fx:id="HistoryTable" layoutX="47.0" layoutY="89.0" prefHeight="254.0" prefWidth="504.0" />
-      <Label layoutX="258.0" layoutY="45.0" text="History Table" />
-      <Button fx:id="BackButton" layoutX="478.0" layoutY="360.0" mnemonicParsing="false" onAction="#BackToSettings" text="Back To Home" />
+      <ListView fx:id="HistoryTable" layoutX="47.0" layoutY="89.0" prefHeight="250.0" prefWidth="504.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="224.0" layoutY="40.0" style="-fx-font-family: Helvetica;" text="History Table">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+      <Button fx:id="BackButton" layoutX="478.0" layoutY="350.0" mnemonicParsing="false" onAction="#BackToSettings" prefHeight="35.0" prefWidth="93.0" style="-fx-background-color: black; -fx-background-radius: 11; -fx-text-fill: white;" text="Back To Home" />
    </children>
 </AnchorPane>

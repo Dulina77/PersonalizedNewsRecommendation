@@ -6,22 +6,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cw1.FullArticleController">
    <children>
       <HBox prefHeight="80.0" prefWidth="600.0">
          <children>
-            <Label fx:id="TitleSpace" prefHeight="50.0" prefWidth="450.0" text="Label" wrapText="true" />
-            <Label fx:id="categoryLabel" prefHeight="40.0" prefWidth="157.0" text="Label" wrapText="true" />
+            <Label fx:id="TitleSpace" prefHeight="50.0" prefWidth="450.0" style="-fx-font-family: Helvetica;" text="Label" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label fx:id="categoryLabel" prefHeight="40.0" prefWidth="157.0" style="-fx-font-family: Helvetica;" text="Label" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
          </children>
       </HBox>
       <TextArea fx:id="contentSpace" editable="false" prefHeight="272.0" prefWidth="600.0" wrapText="true" />
       <AnchorPane prefHeight="124.0" prefWidth="600.0">
          <children>
-            <Button fx:id="BackButton" layoutX="21.0" layoutY="36.0" mnemonicParsing="false" onAction="#BackToHomePage" text="Back To Home Page" />
-            <Button fx:id="LikeButton" layoutX="436.0" layoutY="36.0" mnemonicParsing="false" onAction="#onLikeButtonClick" text="Like" />
-            <Button fx:id="DislikeButton" layoutX="506.0" layoutY="36.0" mnemonicParsing="false" onAction="#onDislIkeButtonClick" text="Dislike" />
-            <Label layoutX="436.0" layoutY="14.0" prefHeight="17.0" prefWidth="70.0" text="Rate Article?" />
+            <Button fx:id="BackButton" layoutX="21.0" layoutY="28.0" mnemonicParsing="false" onAction="#BackToHomePage" prefHeight="33.0" prefWidth="122.0" style="-fx-background-color: black; -fx-background-radius: 11; -fx-text-fill: white;" text="Back To Home Page" />
+            <Button fx:id="LikeButton" layoutX="436.0" layoutY="36.0" mnemonicParsing="false" onAction="#onLikeButtonClick" prefHeight="33.0" prefWidth="51.0" style="-fx-background-color: black; -fx-background-radius: 11; -fx-text-fill: white;" text="Like" />
+            <Button fx:id="DislikeButton" layoutX="506.0" layoutY="36.0" mnemonicParsing="false" onAction="#onDislIkeButtonClick" prefHeight="33.0" prefWidth="70.0" style="-fx-background-color: black; -fx-background-radius: 11; -fx-text-fill: white;" text="Dislike" />
+            <Label layoutX="436.0" layoutY="14.0" prefHeight="17.0" prefWidth="70.0" style="-fx-font-family: Helvetica;" text="Rate Article?">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
             <Label fx:id="SuccessMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="157.0" layoutY="41.0" prefHeight="17.0" prefWidth="269.0" />
          </children>
       </AnchorPane>

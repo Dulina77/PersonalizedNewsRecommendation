@@ -12,12 +12,6 @@ public class Article {
         this.category = category;
     }
 
-    public Article(int ArticleId, String Title, String Content,String category){
-        this.ArticleId = ArticleId;
-        this.Title = Title;
-        this.Content = Content;
-        this.category = category;
-    }
 
     public Article( String Title, String category){
         this.Title = Title;

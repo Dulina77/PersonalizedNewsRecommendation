@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 
 public class MainApplication extends Application {
-
     @Override
     public void start(Stage stage) {
         try {
